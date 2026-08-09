@@ -1,0 +1,6 @@
+<!-- Botón recomendado para Blogger una vez activado GitHub Pages -->
+<a href="https://stssigi-cr.github.io/Blogger_CINDEA/"
+   style="display:inline-block;padding:14px 20px;border-radius:12px;
+          background:#b85c00;color:white;text-decoration:none;font-weight:700;">
+  Entrar al aula de Matemática
+</a>

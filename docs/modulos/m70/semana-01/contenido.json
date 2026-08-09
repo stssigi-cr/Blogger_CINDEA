@@ -1,0 +1,30 @@
+{
+  "modulo": "Módulo 70",
+  "semana": "01",
+  "titulo": "Medidas relativas",
+  "leccionesSugeridas": 4,
+  "indicadores": [
+    "Identifica la importancia de emplear medidas relativas al comparar la posición o la variabilidad entre dos o más grupos de datos.",
+    "Identifica la información necesaria para calcular medidas relativas, estandarización y coeficiente de variación."
+  ],
+  "situacionProblema": {
+    "titulo": "Situación problema",
+    "texto": "Coloque aquí el texto de la situación problema de la semana.",
+    "imagen": ""
+  },
+  "secciones": [
+    {
+      "titulo": "Trabajo estudiantil independiente",
+      "contenido": "Agregue aquí las instrucciones, preguntas guía y materiales de estudio."
+    }
+  ],
+  "recursos": [
+    {
+      "tipo": "exelearning",
+      "titulo": "Práctica interactiva",
+      "descripcion": "Práctica autocorregible de la semana.",
+      "url": "modulos/m70/semana-01/practica/index.html",
+      "disponible": false
+    }
+  ]
+}
