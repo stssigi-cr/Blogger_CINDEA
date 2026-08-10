@@ -1,5 +1,5 @@
 {
-  "schemaVersion": "0.8",
+  "schemaVersion": "0.9",
   "modulo": "Módulo 70",
   "moduloId": "m70",
   "semana": "01",
@@ -26,13 +26,100 @@
       ]
     },
     {
-      "tipo": "video",
+      "tipo": "videoteca",
       "mostrar": true,
-      "titulo": "Video de apoyo: coeficiente de variación",
-      "descripcion": "Explicación en español sobre qué es el coeficiente de variación, cómo calcularlo e interpretarlo.",
-      "proveedor": "youtube",
-      "videoId": "m2oRoby3IwU",
-      "url": "https://www.youtube.com/watch?v=m2oRoby3IwU"
+      "titulo": "Videoteca de apoyo",
+      "descripcion": "Seleccione un video según el concepto que desea repasar. El reproductor se carga únicamente cuando presiona reproducir.",
+      "mostrarMiniaturas": true,
+      "cantidadInicialMovil": 4,
+      "grupos": [
+        {
+          "id": "fundamentos",
+          "titulo": "Fundamentos"
+        },
+        {
+          "id": "ejemplos",
+          "titulo": "Ejemplos"
+        },
+        {
+          "id": "profundizacion",
+          "titulo": "Profundización"
+        }
+      ],
+      "videos": [
+        {
+          "id": "v01",
+          "grupo": "fundamentos",
+          "titulo": "Valor Z o valor estandarizado",
+          "descripcion": "Introducción a las medidas de localización relativa y al valor estandarizado.",
+          "videoId": "kQT2XWGoEJY",
+          "obligatorio": true,
+          "destacado": true
+        },
+        {
+          "id": "v02",
+          "grupo": "fundamentos",
+          "titulo": "Estandarizar y trabajar con valores Z",
+          "descripcion": "Repaso del proceso de estandarización y del uso de valores Z.",
+          "videoId": "7tSOMcp8PKs",
+          "obligatorio": false,
+          "destacado": false
+        },
+        {
+          "id": "v03",
+          "grupo": "fundamentos",
+          "titulo": "Varianza y desviación estándar: introducción",
+          "descripcion": "Repaso de las principales medidas de dispersión antes de estudiar medidas relativas.",
+          "videoId": "oZRaDwnpXkY",
+          "obligatorio": false,
+          "destacado": false
+        },
+        {
+          "id": "v04",
+          "grupo": "ejemplos",
+          "titulo": "¿Qué es el coeficiente de variación?",
+          "descripcion": "Explicación del cálculo e interpretación del coeficiente de variación mediante ejemplos.",
+          "videoId": "m2oRoby3IwU",
+          "obligatorio": true,
+          "destacado": true
+        },
+        {
+          "id": "v05",
+          "grupo": "ejemplos",
+          "titulo": "Medidas de dispersión relativas",
+          "descripcion": "Ejemplos del coeficiente de variación de Pearson.",
+          "videoId": "0GmxJYpTLBs",
+          "obligatorio": false,
+          "destacado": false
+        },
+        {
+          "id": "v06",
+          "grupo": "ejemplos",
+          "titulo": "Varianza, desviación estándar y coeficiente de variación",
+          "descripcion": "Ejemplo completo de cálculo de varianza, desviación estándar y coeficiente de variación.",
+          "videoId": "fzPBAp14R98",
+          "obligatorio": false,
+          "destacado": false
+        },
+        {
+          "id": "v07",
+          "grupo": "profundizacion",
+          "titulo": "Coeficiente de variación: comparación de distribuciones",
+          "descripcion": "Aplicación del coeficiente de variación para comparar dos distribuciones.",
+          "videoId": "UPgWtKrvVwQ",
+          "obligatorio": false,
+          "destacado": false
+        },
+        {
+          "id": "v08",
+          "grupo": "profundizacion",
+          "titulo": "Coeficiente de variación de Pearson",
+          "descripcion": "Explicación adicional de qué es, cómo se calcula y cómo se interpreta.",
+          "videoId": "j6-SCXiNgas",
+          "obligatorio": false,
+          "destacado": false
+        }
+      ]
     },
     {
       "tipo": "situacionProblema",
