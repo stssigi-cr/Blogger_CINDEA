@@ -401,11 +401,13 @@
       "mostrar": true,
       "titulo": "Práctica interactiva",
       "descripcion": "Práctica de integración alojada en GitHub Pages. La carpeta está preparada para sustituirse por una exportación real de eXeLearning.",
-      "url": "https://stssigi-cr.github.io/Blogger_CINDEA/modulos/m70/semana-01/practica/index.html",
+      "url": "modulos/m70/semana-01/practica/index.html",
       "modo": "iframe",
-      "altura": 760,
       "disponible": true,
-      "abrirEnNuevaPestana": true
+      "abrirEnNuevaPestana": true,
+      "autoAjustar": true,
+      "modoMovil": "pantallaCompleta",
+      "alturaMinima": 520
     },
     {
       "tipo": "pdf",

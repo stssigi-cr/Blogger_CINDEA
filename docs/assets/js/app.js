@@ -691,60 +691,252 @@ function renderGeoGebra(b){
   `;
 }
 
-function absoluteResourceUrl(path){
-  if(!path) return "";
-  try { return new URL(path, document.baseURI).href; }
-  catch(err){ return path; }
-}
-
-function iframeFreshUrl(path){
-  const absolute = absoluteResourceUrl(path);
-  if(!absolute) return "";
-  try{
-    const u = new URL(absolute);
-    u.searchParams.set("_embed", "0.9.1");
-    return u.href;
-  }catch(err){ return absolute; }
-}
-
 function renderExeLearning(b){
   if(b.disponible!==true || !b.url){
-    return `<section class="practice-panel">
-      <div class="practice-icon">${iconHtml("practice")}</div>
-      <div class="practice-copy">
-        <p class="practice-kicker">PRÁCTICA</p>
-        <h2>${esc(b.titulo||"Práctica")}</h2>
-        <p>${esc(b.descripcion||"")}</p>
-      </div>
-      <span class="practice-button is-disabled">Próximamente</span>
-    </section>`;
+    return `
+      <section class="practice-panel">
+        <div class="practice-icon">${iconHtml("practice")}</div>
+        <div class="practice-copy">
+          <p class="practice-kicker">PRÁCTICA</p>
+          <h2>${esc(b.titulo||"Práctica")}</h2>
+          <p>${esc(b.descripcion||"")}</p>
+        </div>
+        <span class="practice-button is-disabled">Próximamente</span>
+      </section>
+    `;
   }
 
-  const fullUrl = absoluteResourceUrl(b.url);
-  const embedUrl = iframeFreshUrl(b.url);
+  const auto = b.autoAjustar !== false;
+  const mobileFullscreen = b.modoMovil === "pantallaCompleta";
+  const minHeight = Number(b.alturaMinima) || 520;
 
-  return `<section class="media-panel exelearning-panel">
-    <div class="media-head">
-      ${iconHtml("practice","heading-icon")}
-      <h2>${esc(b.titulo||"Práctica interactiva")}</h2>
-    </div>
-    <div class="media-body">
-      ${b.descripcion ? `<p>${esc(b.descripcion)}</p>` : ""}
-      ${b.modo==="iframe" ? `<div class="responsive-frame exe-frame" style="--embed-height:${Number(b.altura)||720}px">
-        <iframe
-          src="${esc(embedUrl)}"
-          title="${esc(b.titulo||"Práctica interactiva")}"
-          loading="eager"
-          referrerpolicy="strict-origin-when-cross-origin">
-        </iframe>
-      </div>` : ""}
-      <a class="media-link"
-         href="${esc(fullUrl)}"
-         ${b.abrirEnNuevaPestana!==false ? 'target="_blank" rel="noopener noreferrer"' : ""}>
-        ${iconHtml("external")}Abrir práctica en pantalla completa
-      </a>
-    </div>
-  </section>`;
+  return `
+    <section
+      class="media-panel exelearning-panel${mobileFullscreen ? " exe-mobile-fullscreen" : ""}"
+      data-exe-auto="${auto ? "true" : "false"}">
+
+      <div class="media-head">
+        ${iconHtml("practice","heading-icon")}
+        <h2>${esc(b.titulo||"Práctica interactiva")}</h2>
+      </div>
+
+      <div class="media-body">
+        ${b.descripcion ? `<p>${esc(b.descripcion)}</p>` : ""}
+
+        <div class="exe-desktop-embed">
+          <div class="responsive-frame exe-frame">
+            <iframe
+              class="exe-auto-iframe"
+              src="${esc(b.url)}"
+              title="${esc(b.titulo||"Práctica interactiva")}"
+              loading="lazy"
+              scrolling="no"
+              style="min-height:${minHeight}px">
+            </iframe>
+          </div>
+        </div>
+
+        <div class="exe-mobile-launch">
+          <div class="exe-mobile-card">
+            <div class="exe-mobile-icon">${iconHtml("practice")}</div>
+            <div>
+              <strong>${esc(b.titulo||"Práctica interactiva")}</strong>
+              <p>Para una mejor experiencia, abra esta actividad en pantalla completa.</p>
+            </div>
+          </div>
+        </div>
+
+        <a
+          class="media-link exe-open-full"
+          href="${esc(b.url)}"
+          ${b.abrirEnNuevaPestana!==false
+            ? 'target="_blank" rel="noopener noreferrer"'
+            : ""}>
+          ${iconHtml("external")}Abrir práctica en pantalla completa
+        </a>
+      </div>
+    </section>
+  `;
+}
+
+/* ---------------------------------------------------------
+   eXeLearning v0.9.1: ajuste automático de ancho y altura
+   --------------------------------------------------------- */
+
+function installExeResponsiveStyles(doc){
+  if(!doc?.head || doc.getElementById("cindea-exe-responsive")) return;
+
+  const style = doc.createElement("style");
+  style.id = "cindea-exe-responsive";
+  style.textContent = `
+    html, body {
+      width:100% !important;
+      max-width:100% !important;
+      min-width:0 !important;
+      margin:0 !important;
+      padding-left:0 !important;
+      padding-right:0 !important;
+      overflow-x:hidden !important;
+      overflow-y:hidden !important;
+      box-sizing:border-box !important;
+    }
+
+    *, *::before, *::after {
+      box-sizing:border-box !important;
+    }
+
+    body > *,
+    #content, #main, #main-wrapper, #nodeDecoration,
+    .page, .exe-content, .exe-wrapper,
+    .iDevice, .iDevice_content, .iDevice_wrapper,
+    .exe-figure, .exe-layout, .exe-game, .game-container {
+      max-width:100% !important;
+      min-width:0 !important;
+      box-sizing:border-box !important;
+    }
+
+    img, svg, video, canvas, object, embed {
+      max-width:100% !important;
+      height:auto !important;
+    }
+
+    iframe {
+      max-width:100% !important;
+      border:0 !important;
+    }
+
+    table {
+      width:100% !important;
+      max-width:100% !important;
+      table-layout:auto !important;
+    }
+
+    pre, code {
+      max-width:100% !important;
+      white-space:pre-wrap !important;
+      overflow-wrap:anywhere !important;
+    }
+  `;
+  doc.head.appendChild(style);
+}
+
+function normalizeNestedExeIframes(doc){
+  if(!doc?.querySelectorAll) return;
+
+  doc.querySelectorAll("iframe").forEach(inner=>{
+    try{
+      inner.style.width = "100%";
+      inner.style.maxWidth = "100%";
+
+      const innerDoc = inner.contentDocument;
+      if(innerDoc?.body){
+        installExeResponsiveStyles(innerDoc);
+
+        const h = Math.max(
+          innerDoc.body.scrollHeight || 0,
+          innerDoc.documentElement?.scrollHeight || 0
+        );
+
+        if(h > 0){
+          inner.style.height = `${h + 8}px`;
+          inner.setAttribute("scrolling","no");
+        }
+      }
+    }catch(err){
+      // Un iframe externo puede bloquear el acceso por seguridad.
+    }
+  });
+}
+
+function measureExeDocument(doc){
+  if(!doc?.body) return 0;
+  const html = doc.documentElement;
+
+  return Math.max(
+    doc.body.scrollHeight || 0,
+    doc.body.offsetHeight || 0,
+    html?.scrollHeight || 0,
+    html?.offsetHeight || 0,
+    html?.clientHeight || 0
+  );
+}
+
+function activateExeLearningAutoResize(root=document){
+  root.querySelectorAll(".exelearning-panel[data-exe-auto='true'] .exe-auto-iframe")
+    .forEach(iframe=>{
+
+      if(iframe.dataset.autoResizeReady === "true") return;
+      iframe.dataset.autoResizeReady = "true";
+
+      let timer = null;
+
+      const adjust = ()=>{
+        clearTimeout(timer);
+
+        timer = setTimeout(()=>{
+          try{
+            const doc = iframe.contentDocument;
+            if(!doc?.body) return;
+
+            installExeResponsiveStyles(doc);
+            normalizeNestedExeIframes(doc);
+
+            requestAnimationFrame(()=>{
+              const measured = measureExeDocument(doc);
+              const minHeight = parseFloat(iframe.style.minHeight) || 520;
+
+              if(measured > 0){
+                iframe.style.height = `${Math.max(measured + 14, minHeight)}px`;
+              }
+            });
+
+          }catch(err){
+            console.warn("No fue posible autoajustar eXeLearning:", err);
+          }
+        }, 50);
+      };
+
+      iframe.addEventListener("load", ()=>{
+        try{
+          const doc = iframe.contentDocument;
+          if(!doc?.body) return;
+
+          installExeResponsiveStyles(doc);
+          normalizeNestedExeIframes(doc);
+          adjust();
+
+          if("ResizeObserver" in window){
+            const ro = new ResizeObserver(adjust);
+            ro.observe(doc.documentElement);
+            ro.observe(doc.body);
+          }
+
+          const mo = new MutationObserver(adjust);
+          mo.observe(doc.body,{
+            childList:true,
+            subtree:true,
+            attributes:true,
+            characterData:true
+          });
+
+          doc.addEventListener("click", ()=>{
+            setTimeout(adjust, 30);
+            setTimeout(adjust, 250);
+            setTimeout(adjust, 700);
+          }, true);
+
+          doc.addEventListener("change", ()=>{
+            setTimeout(adjust, 30);
+            setTimeout(adjust, 250);
+          }, true);
+
+        }catch(err){
+          console.warn("No se pudieron activar observadores de eXeLearning:", err);
+        }
+      });
+
+      window.addEventListener("resize", adjust, {passive:true});
+    });
 }
 
 function renderPdf(b){
@@ -938,6 +1130,7 @@ async function renderSemana(){
     `;
 
     activateVideotecas(content);
+    activateExeLearningAutoResize(content);
     await typesetMath(content);
 
   }catch(e){
