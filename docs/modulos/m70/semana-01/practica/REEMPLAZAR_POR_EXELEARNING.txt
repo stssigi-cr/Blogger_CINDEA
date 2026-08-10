@@ -1,2 +1,0 @@
-Esta práctica HTML sirve únicamente para probar la integración.
-Cuando tenga la práctica real de eXeLearning, exporte como sitio web y sustituya TODO el contenido de esta carpeta, manteniendo index.html.
