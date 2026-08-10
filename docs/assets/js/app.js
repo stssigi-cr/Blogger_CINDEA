@@ -35,7 +35,7 @@ function iconHtml(name, extraClass=""){
 }
 
 async function getJSON(path){
-  const res = await fetch(`${path}?v=0.9.0`, {cache:"no-store"});
+  const res = await fetch(`${path}?v=0.9.1`, {cache:"no-store"});
   if(!res.ok) throw new Error(`No se pudo cargar ${path}`);
   return res.json();
 }
@@ -691,52 +691,60 @@ function renderGeoGebra(b){
   `;
 }
 
+function absoluteResourceUrl(path){
+  if(!path) return "";
+  try { return new URL(path, document.baseURI).href; }
+  catch(err){ return path; }
+}
+
+function iframeFreshUrl(path){
+  const absolute = absoluteResourceUrl(path);
+  if(!absolute) return "";
+  try{
+    const u = new URL(absolute);
+    u.searchParams.set("_embed", "0.9.1");
+    return u.href;
+  }catch(err){ return absolute; }
+}
+
 function renderExeLearning(b){
   if(b.disponible!==true || !b.url){
-    return `
-      <section class="practice-panel">
-        <div class="practice-icon">${iconHtml("practice")}</div>
-        <div class="practice-copy">
-          <p class="practice-kicker">PRÁCTICA</p>
-          <h2>${esc(b.titulo||"Práctica")}</h2>
-          <p>${esc(b.descripcion||"")}</p>
-        </div>
-        <span class="practice-button is-disabled">Próximamente</span>
-      </section>
-    `;
+    return `<section class="practice-panel">
+      <div class="practice-icon">${iconHtml("practice")}</div>
+      <div class="practice-copy">
+        <p class="practice-kicker">PRÁCTICA</p>
+        <h2>${esc(b.titulo||"Práctica")}</h2>
+        <p>${esc(b.descripcion||"")}</p>
+      </div>
+      <span class="practice-button is-disabled">Próximamente</span>
+    </section>`;
   }
 
-  return `
-    <section class="media-panel exelearning-panel">
-      <div class="media-head">
-        ${iconHtml("practice","heading-icon")}
-        <h2>${esc(b.titulo||"Práctica interactiva")}</h2>
-      </div>
+  const fullUrl = absoluteResourceUrl(b.url);
+  const embedUrl = iframeFreshUrl(b.url);
 
-      <div class="media-body">
-        ${b.descripcion ? `<p>${esc(b.descripcion)}</p>` : ""}
-
-        ${b.modo==="iframe"
-          ? `<div class="responsive-frame exe-frame" style="--embed-height:${Number(b.altura)||720}px">
-               <iframe
-                 src="${esc(b.url)}"
-                 title="${esc(b.titulo||"Práctica interactiva")}"
-                 loading="lazy">
-               </iframe>
-             </div>`
-          : ""}
-
-        <a
-          class="media-link"
-          href="${esc(b.url)}"
-          ${b.abrirEnNuevaPestana!==false
-            ? 'target="_blank" rel="noopener noreferrer"'
-            : ""}>
-          ${iconHtml("external")}Abrir práctica en pantalla completa
-        </a>
-      </div>
-    </section>
-  `;
+  return `<section class="media-panel exelearning-panel">
+    <div class="media-head">
+      ${iconHtml("practice","heading-icon")}
+      <h2>${esc(b.titulo||"Práctica interactiva")}</h2>
+    </div>
+    <div class="media-body">
+      ${b.descripcion ? `<p>${esc(b.descripcion)}</p>` : ""}
+      ${b.modo==="iframe" ? `<div class="responsive-frame exe-frame" style="--embed-height:${Number(b.altura)||720}px">
+        <iframe
+          src="${esc(embedUrl)}"
+          title="${esc(b.titulo||"Práctica interactiva")}"
+          loading="eager"
+          referrerpolicy="strict-origin-when-cross-origin">
+        </iframe>
+      </div>` : ""}
+      <a class="media-link"
+         href="${esc(fullUrl)}"
+         ${b.abrirEnNuevaPestana!==false ? 'target="_blank" rel="noopener noreferrer"' : ""}>
+        ${iconHtml("external")}Abrir práctica en pantalla completa
+      </a>
+    </div>
+  </section>`;
 }
 
 function renderPdf(b){

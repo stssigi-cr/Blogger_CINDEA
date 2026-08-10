@@ -1,5 +1,5 @@
 {
-  "schemaVersion": "0.9",
+  "schemaVersion": "0.9.1",
   "modulo": "Módulo 70",
   "moduloId": "m70",
   "semana": "01",
@@ -401,7 +401,7 @@
       "mostrar": true,
       "titulo": "Práctica interactiva",
       "descripcion": "Práctica de integración alojada en GitHub Pages. La carpeta está preparada para sustituirse por una exportación real de eXeLearning.",
-      "url": "modulos/m70/semana-01/practica/index.html",
+      "url": "https://stssigi-cr.github.io/Blogger_CINDEA/modulos/m70/semana-01/practica/index.html",
       "modo": "iframe",
       "altura": 760,
       "disponible": true,
