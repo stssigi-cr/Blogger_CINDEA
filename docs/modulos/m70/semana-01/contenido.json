@@ -1,5 +1,5 @@
 {
-  "schemaVersion": "0.2",
+  "schemaVersion": "0.3",
   "modulo": "Módulo 70",
   "moduloId": "m70",
   "semana": "01",
@@ -10,39 +10,109 @@
     "Identifica la importancia de emplear medidas relativas al comparar la posición o la variabilidad entre dos o más grupos de datos, en situaciones en el entorno que evidencia.",
     "Identifica la información para calcular las medidas relativas, estandarización y el coeficiente de variación que contribuyan a resolver el problema planteado."
   ],
-  "situacionProblema": {
-    "titulo": "Situación problema",
-    "texto": [
-      "Sofía compite en natación. En la última competencia nadó 100 metros en 1 minuto con 12 segundos. Juan compite en atletismo. En su prueba, corrió 400 metros en 58 segundos.",
-      "En natación, el promedio de tiempo fue 1 minuto con 15 segundos, y la mayoría de participantes estuvo entre 1:12 y 1:18. En atletismo, el promedio fue 60 segundos, y la mayoría de participantes corrió entre 56 y 64 segundos.",
-      "Ambos quieren saber: ¿quién tuvo un mejor rendimiento dentro de su disciplina?"
-    ],
-    "imagen": {
-      "src": "",
-      "alt": "Ilustración de Sofía en natación y Juan en atletismo.",
-      "pie": ""
-    }
-  },
-  "secciones": [
+  "situacionesProblema": [
     {
-      "tipo": "actividad",
-      "titulo": "Trabajo estudiantil independiente",
-      "icono": "✏️",
-      "introduccion": [
-        "Observe los datos y responda en su cuaderno."
+      "id": "sp01",
+      "titulo": "Situación problema 1",
+      "texto": [
+        "Sofía compite en natación. En la última competencia nadó 100 metros en 1 minuto con 12 segundos. Juan compite en atletismo. En su prueba, corrió 400 metros en 58 segundos.",
+        "En natación, el promedio de tiempo fue 1 minuto con 15 segundos, y la mayoría de participantes estuvo entre 1:12 y 1:18. En atletismo, el promedio fue 60 segundos, y la mayoría de participantes corrió entre 56 y 64 segundos.",
+        "Ambos quieren saber: ¿quién tuvo un mejor rendimiento dentro de su disciplina?"
       ],
-      "preguntas": [
-        "¿Podemos decir quién tuvo un mejor rendimiento solo mirando los tiempos?",
-        "¿Podría ser injusto comparar los segundos directamente? ¿Por qué?"
-      ]
+      "imagen": {
+        "src": "modulos/m70/semana-01/img/situacion-problema-01.png",
+        "alt": "Ilustración de Sofía nadando 100 metros en 1 minuto con 12 segundos y Juan corriendo 400 metros en 58 segundos.",
+        "pie": "Comparación del rendimiento de Sofía y Juan en disciplinas diferentes."
+      },
+      "actividad": {
+        "titulo": "Trabajo estudiantil independiente",
+        "introduccion": [
+          "Observe los datos y responda en su cuaderno."
+        ],
+        "preguntas": [
+          "¿Podemos decir quién tuvo un mejor rendimiento solo mirando los tiempos?",
+          "¿Podría ser injusto comparar los segundos directamente? ¿Por qué?"
+        ]
+      }
     },
+    {
+      "id": "sp02",
+      "titulo": "Situación problema 2",
+      "texto": [
+        "Un zoólogo desea determinar en cuál de dos especies existe mayor variabilidad relativa en el peso de los animales adultos.",
+        "Selecciona una muestra aleatoria de 10 jaguares y otra de 10 tepezcuintles. Los pesos, expresados en kilogramos, se muestran a continuación."
+      ],
+      "tabla": {
+        "encabezados": [
+          "Especie",
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9",
+          "10"
+        ],
+        "filas": [
+          [
+            "Jaguar",
+            "80",
+            "66",
+            "72",
+            "76",
+            "76",
+            "70",
+            "65",
+            "68",
+            "69",
+            "77"
+          ],
+          [
+            "Tepezcuintle",
+            "4,5",
+            "6,4",
+            "7,0",
+            "7,7",
+            "6,6",
+            "7,5",
+            "8,1",
+            "6,3",
+            "7,7",
+            "6,9"
+          ]
+        ]
+      },
+      "preguntaClave": "¿Para qué especie los pesos mostrados son relativamente más variables?",
+      "imagen": {
+        "src": "modulos/m70/semana-01/img/situacion-problema-02.png",
+        "alt": "Ilustración de un zoólogo comparando la variabilidad relativa del peso de jaguares y tepezcuintles.",
+        "pie": "Comparación de la variabilidad relativa del peso de dos especies."
+      },
+      "actividad": {
+        "titulo": "Trabajo estudiantil independiente",
+        "introduccion": [
+          "Con base en la información del contexto, determine y responda."
+        ],
+        "preguntas": [
+          "Calcule la media aritmética de ambas poblaciones.",
+          "Calcule la desviación estándar muestral para ambas poblaciones.",
+          "Divida, para cada población, la desviación estándar entre su media y multiplique el resultado por 100 %.",
+          "Compare los porcentajes obtenidos y responda: ¿para qué especie los pesos mostrados son relativamente más variables?"
+        ]
+      }
+    }
+  ],
+  "secciones": [
     {
       "tipo": "texto",
       "titulo": "Recordatorio matemático",
       "icono": "📘",
       "parrafos": [
         "Una medida relativa permite comparar un valor con respecto al comportamiento del grupo al que pertenece.",
-        "Por ejemplo, el coeficiente de variación puede expresarse como \\(CV=\\frac{s}{\\bar{x}}\\times 100\\%\\)."
+        "El coeficiente de variación puede calcularse mediante \\[CV=\\frac{s}{\\bar{x}}\\times 100\\%\\]"
       ]
     }
   ],

@@ -56,15 +56,77 @@
 
   function renderImagen(imagen) {
     if (!imagen || !imagen.src) return "";
-    const pie = imagen.pie ? `<figcaption>${esc(imagen.pie)}</figcaption>` : "";
     return `
       <figure class="content-figure">
-        <img src="${esc(imagen.src)}"
-             alt="${esc(imagen.alt || "")}"
-             loading="lazy"
-             decoding="async">
-        ${pie}
+        <img
+          src="${esc(imagen.src)}"
+          alt="${esc(imagen.alt || "")}"
+          loading="lazy"
+          decoding="async">
+        ${imagen.pie ? `<figcaption>${esc(imagen.pie)}</figcaption>` : ""}
       </figure>
+    `;
+  }
+
+  function renderTabla(tabla) {
+    if (!tabla?.encabezados?.length || !tabla?.filas?.length) return "";
+    const head = tabla.encabezados.map(h => `<th scope="col">${esc(h)}</th>`).join("");
+    const rows = tabla.filas.map((fila, i) => `
+      <tr>
+        ${fila.map((c, j) => j === 0
+          ? `<th scope="row">${esc(c)}</th>`
+          : `<td>${esc(c)}</td>`
+        ).join("")}
+      </tr>
+    `).join("");
+
+    return `
+      <div class="table-wrap" tabindex="0" aria-label="Tabla de datos de la situación problema">
+        <table class="data-table">
+          <thead><tr>${head}</tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>
+    `;
+  }
+
+  function renderActividad(actividad) {
+    if (!actividad) return "";
+    const preguntas = (actividad.preguntas || [])
+      .map(q => `<li>${esc(q)}</li>`)
+      .join("");
+
+    return `
+      <div class="problem-activity">
+        <h3>✏️ ${esc(actividad.titulo || "Trabajo estudiantil independiente")}</h3>
+        ${paragraphList(actividad.introduccion)}
+        ${preguntas ? `<ol class="question-list alpha-list">${preguntas}</ol>` : ""}
+      </div>
+    `;
+  }
+
+  function renderSituacion(situacion, index) {
+    const texto = paragraphList(situacion.texto || []);
+    const tabla = renderTabla(situacion.tabla);
+    const preguntaClave = situacion.preguntaClave
+      ? `<p class="key-question"><strong>${esc(situacion.preguntaClave)}</strong></p>`
+      : "";
+    const hasImage = Boolean(situacion.imagen?.src);
+
+    return `
+      <section class="panel problem-panel">
+        <div class="problem-number">SITUACIÓN ${String(index + 1).padStart(2, "0")}</div>
+        <h2><span class="section-icon" aria-hidden="true">🎯</span>${esc(situacion.titulo || `Situación problema ${index + 1}`)}</h2>
+        <div class="${hasImage ? "problem-grid" : ""}">
+          <div class="problem-copy">
+            ${texto}
+            ${tabla}
+            ${preguntaClave}
+          </div>
+          ${renderImagen(situacion.imagen)}
+        </div>
+        ${renderActividad(situacion.actividad)}
+      </section>
     `;
   }
 
@@ -72,7 +134,6 @@
     const icono = seccion.icono
       ? `<span class="section-icon" aria-hidden="true">${esc(seccion.icono)}</span>`
       : "";
-    const titulo = esc(seccion.titulo || "");
 
     if (seccion.tipo === "actividad") {
       const preguntas = (seccion.preguntas || [])
@@ -80,7 +141,7 @@
         .join("");
       return `
         <section class="panel">
-          <h2>${icono}${titulo}</h2>
+          <h2>${icono}${esc(seccion.titulo || "")}</h2>
           ${paragraphList(seccion.introduccion)}
           ${preguntas ? `<ol class="question-list">${preguntas}</ol>` : ""}
           ${renderImagen(seccion.imagen)}
@@ -91,7 +152,7 @@
     if (seccion.tipo === "nota") {
       return `
         <aside class="panel note-panel">
-          <h2>${icono}${titulo}</h2>
+          <h2>${icono}${esc(seccion.titulo || "")}</h2>
           ${paragraphList(seccion.parrafos)}
         </aside>
       `;
@@ -99,7 +160,7 @@
 
     return `
       <section class="panel">
-        <h2>${icono}${titulo}</h2>
+        <h2>${icono}${esc(seccion.titulo || "")}</h2>
         ${paragraphList(seccion.parrafos)}
         ${renderImagen(seccion.imagen)}
       </section>
@@ -141,7 +202,6 @@
 
   function ayudaHTML(ayuda = {}) {
     if (!ayuda.mostrar) return "";
-
     const boton = ayuda.url
       ? `<a class="button-primary" href="${esc(ayuda.url)}">💬 Enviar mensaje</a>`
       : `<span class="button-primary disabled-button" aria-disabled="true">💬 Enviar mensaje</span>`;
@@ -238,9 +298,9 @@
         .map(i => `<li>${esc(i)}</li>`)
         .join("");
 
-      const situacionTexto = Array.isArray(data.situacionProblema?.texto)
-        ? paragraphList(data.situacionProblema.texto)
-        : `<p>${esc(data.situacionProblema?.texto || "")}</p>`;
+      const situaciones = Array.isArray(data.situacionesProblema)
+        ? data.situacionesProblema.map(renderSituacion).join("")
+        : "";
 
       const secciones = (data.secciones || [])
         .map(renderSeccion)
@@ -261,13 +321,7 @@
           <ol class="indicators alpha-list">${indicadores}</ol>
         </section>
 
-        <section class="panel">
-          <h2><span class="section-icon" aria-hidden="true">🎯</span>${esc(data.situacionProblema?.titulo || "Situación problema")}</h2>
-          <div class="${data.situacionProblema?.imagen?.src ? "problem-grid" : ""}">
-            <div>${situacionTexto}</div>
-            ${renderImagen(data.situacionProblema?.imagen)}
-          </div>
-        </section>
+        ${situaciones}
 
         ${secciones}
 
