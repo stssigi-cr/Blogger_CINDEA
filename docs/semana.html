@@ -6,12 +6,22 @@
   <meta name="description" content="Semana de estudio del portal de Matemática del CINDEA Aserrí">
   <meta name="color-scheme" content="light">
   <title>Semana — CINDEA Aserrí</title>
-  <link rel="stylesheet" href="assets/css/app.css">
-  <script defer src="assets/js/mathjax-config.js"></script>
+
+  <!-- Bootstrap Icons v1.13.1 -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
+  <!-- v=0.5.0 obliga al navegador a pedir la nueva hoja de estilos -->
+  <link rel="stylesheet" href="assets/css/app.css?v=0.5.0">
+
+  <script defer src="assets/js/mathjax-config.js?v=0.5.0"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
 </head>
+
 <body data-page="semana">
   <a class="skip-link" href="#contenido-principal">Saltar al contenido</a>
+
   <header class="site-header compact">
     <div class="wrap">
       <a id="back-module" class="back-link" href="index.html">← Volver</a>
@@ -20,11 +30,14 @@
       <p id="week-topic" class="lead"></p>
     </div>
   </header>
+
   <main id="contenido-principal" class="wrap">
     <div id="week-content" class="week-layout" aria-live="polite">
       <p class="loading">Cargando contenido de la semana…</p>
     </div>
   </main>
-  <script src="assets/js/app.js" defer></script>
+
+  <!-- v=0.5.0 evita que Chrome reutilice app.js de una versión anterior -->
+  <script src="assets/js/app.js?v=0.5.0" defer></script>
 </body>
 </html>
