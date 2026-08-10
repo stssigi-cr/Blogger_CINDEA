@@ -553,3 +553,298 @@ mjx-container[display="true"] {
 @media (prefers-reduced-motion: reduce) {
   * { scroll-behavior: auto !important; transition: none !important; }
 }
+
+
+/* =========================================================
+   CONSTRUCTOR DE LECCIONES v0.7
+   ========================================================= */
+
+/* Teoría */
+.theory-panel {
+  overflow: hidden;
+  border: 1px solid #bfcbd8;
+  background: #fff;
+  box-shadow: var(--shadow);
+}
+
+.theory-head {
+  display: flex;
+  align-items: center;
+  gap: .15rem;
+  padding: 12px 16px;
+  background: #e7eef7;
+  border-bottom: 1px solid #bfcbd8;
+  color: #28496f;
+}
+
+.theory-head .ui-icon {
+  color: #315f93;
+}
+
+.theory-head h2 {
+  margin: 0;
+  font-size: 1.28rem;
+}
+
+.theory-body {
+  padding: 18px 20px;
+}
+
+.theory-body p {
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+}
+
+/* Fórmulas independientes dentro de teoría, ejemplos y notas */
+.formula-block,
+.step-formula {
+  margin: 12px 0;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: #f7f8fa;
+  text-align: center;
+}
+
+/* Paso a paso */
+.steps-panel {
+  overflow: hidden;
+  border: 1px solid #b8d0c6;
+  background: #fff;
+  box-shadow: var(--shadow);
+}
+
+.steps-head {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  background: #dfeee8;
+  color: #245a45;
+}
+
+.steps-head .ui-icon {
+  color: #2f7357;
+}
+
+.steps-head h2 {
+  margin: 0;
+  font-size: 1.28rem;
+}
+
+.steps-list {
+  list-style: none;
+  margin: 0;
+  padding: 18px 20px;
+  counter-reset: step-counter;
+}
+
+.step-item {
+  display: grid;
+  grid-template-columns: 42px minmax(0,1fr);
+  gap: 14px;
+  align-items: start;
+  padding: 10px 0;
+}
+
+.step-item + .step-item {
+  border-top: 1px solid #e0e5e2;
+}
+
+.step-marker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #2f7357;
+  color: #fff;
+  font-weight: 900;
+}
+
+.step-content h3 {
+  margin: 2px 0 5px;
+  font-size: 1.02rem;
+}
+
+.step-content p {
+  margin: 0;
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+/* Trabajo cotidiano */
+.daily-work-panel {
+  overflow: hidden;
+  border: 1px solid #dbb778;
+  background: #fff;
+  box-shadow: var(--shadow);
+}
+
+.daily-work-head {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  background: #f4aa4f;
+  color: #20242a;
+}
+
+.daily-work-head .ui-icon {
+  color: #8f4c00;
+}
+
+.daily-work-head h2 {
+  margin: 0;
+  font-size: 1.28rem;
+}
+
+.daily-work-body {
+  padding: 18px 20px;
+}
+
+.daily-work-body p,
+.daily-work-body li {
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+}
+
+.daily-work-list {
+  padding-left: 1.55em;
+}
+
+.daily-work-list li + li {
+  margin-top: 9px;
+}
+
+/* Práctica destacada */
+.practice-panel {
+  display: grid;
+  grid-template-columns: auto minmax(0,1fr) auto;
+  gap: 18px;
+  align-items: center;
+  padding: 20px;
+  border: 1px solid #c7bfdc;
+  background: #f8f6fc;
+  box-shadow: var(--shadow);
+}
+
+.practice-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: #e9e3f4;
+}
+
+.practice-icon .ui-icon {
+  color: #66559a;
+  font-size: 1.8rem;
+}
+
+.practice-kicker {
+  margin: 0 0 3px !important;
+  color: #66559a;
+  font-size: .75rem;
+  font-weight: 900;
+  letter-spacing: .08em;
+}
+
+.practice-copy h2 {
+  margin: 0 0 4px;
+  font-size: 1.28rem;
+}
+
+.practice-copy p {
+  margin: 0;
+  color: var(--muted);
+  text-align: left;
+}
+
+.practice-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .45rem;
+  min-height: 44px;
+  padding: 10px 15px;
+  border-radius: 10px;
+  background: #66559a;
+  color: #fff;
+  font-weight: 800;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.practice-button:hover {
+  background: #51427e;
+}
+
+.practice-button.is-disabled {
+  opacity: .55;
+  cursor: not-allowed;
+}
+
+/* Recurso individual dentro del flujo */
+.single-resource-panel .resource {
+  min-height: 108px;
+}
+
+/* Evitar exceso de espacio entre bloques con bordes rectos */
+.theory-panel,
+.steps-panel,
+.daily-work-panel,
+.example-panel,
+.important-note,
+.practice-panel {
+  border-radius: 8px;
+}
+
+/* Mejor presentación de notas importantes */
+.important-note {
+  position: relative;
+}
+
+.important-note::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 5px;
+  background: #f4aa4f;
+}
+
+/* Responsive */
+@media (max-width: 760px) {
+  .practice-panel {
+    grid-template-columns: auto minmax(0,1fr);
+  }
+
+  .practice-button {
+    grid-column: 1 / -1;
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .theory-body,
+  .daily-work-body,
+  .steps-list {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .step-item {
+    grid-template-columns: 34px minmax(0,1fr);
+    gap: 10px;
+  }
+
+  .step-marker {
+    width: 30px;
+    height: 30px;
+    font-size: .9rem;
+  }
+}

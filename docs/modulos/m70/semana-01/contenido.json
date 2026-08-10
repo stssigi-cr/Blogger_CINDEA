@@ -1,5 +1,5 @@
 {
-  "schemaVersion": "0.6",
+  "schemaVersion": "0.7",
   "modulo": "Módulo 70",
   "moduloId": "m70",
   "semana": "01",
@@ -10,8 +10,22 @@
     "Identifica la importancia de emplear medidas relativas al comparar la posición o la variabilidad entre dos o más grupos de datos, en situaciones en el entorno que evidencia.",
     "Identifica la información para calcular las medidas relativas, estandarización y el coeficiente de variación que contribuyan a resolver el problema planteado."
   ],
-  "situacionesProblema": [
+  "bloques": [
     {
+      "tipo": "teoria",
+      "titulo": "¿Qué son las medidas relativas?",
+      "icono": "book",
+      "parrafos": [
+        "Las medidas relativas permiten comparar datos que pertenecen a grupos diferentes. En lugar de observar únicamente el valor obtenido, consideran la posición del dato con respecto al comportamiento del grupo.",
+        "Esta idea es especialmente útil cuando las escalas, las unidades o la variabilidad de los grupos no son iguales."
+      ],
+      "formulas": [
+        "\\[z=\\frac{x-\\bar{x}}{s}\\]",
+        "\\[CV=\\frac{s}{\\bar{x}}\\times100\\%\\]"
+      ]
+    },
+    {
+      "tipo": "situacionProblema",
       "id": "sp01",
       "titulo": "Situación problema 1",
       "texto": [
@@ -36,6 +50,97 @@
       }
     },
     {
+      "tipo": "ejemplo",
+      "numero": "01",
+      "subtitulo": "Estandarización",
+      "titulo": "Ejemplo 01",
+      "parrafos": [
+        "A dos instituciones educativas se les aplicó una prueba bajo las mismas condiciones. A continuación, se muestra la tabla con los resultados obtenidos:"
+      ],
+      "tabla": {
+        "encabezados": [
+          "Institución",
+          "Media aritmética",
+          "Desviación estándar",
+          "Mejor nota"
+        ],
+        "filas": [
+          [
+            "CINDEA Y",
+            "78",
+            "4,75",
+            "85"
+          ],
+          [
+            "CINDEA Z",
+            "80",
+            "1,45",
+            "85"
+          ]
+        ]
+      },
+      "pregunta": "¿Cuál fue la institución que obtuvo mejor calificación de acuerdo a su contexto?",
+      "solucionTitulo": "Solución",
+      "solucionParrafos": [
+        "Recurriremos a la estandarización de los datos para determinar cuál tuvo mejor posición de acuerdo a su grupo de datos:"
+      ],
+      "tablaSolucion": {
+        "encabezados": [
+          "",
+          "CINDEA Y",
+          "CINDEA Z"
+        ],
+        "filas": [
+          [
+            "Operación",
+            "(85−78) / 4,75",
+            "(85−80) / 1,45"
+          ],
+          [
+            "Resultado",
+            "1,47",
+            "3,45"
+          ]
+        ]
+      }
+    },
+    {
+      "tipo": "pasoAPaso",
+      "titulo": "Paso a paso: estandarizar un dato",
+      "icono": "check",
+      "pasos": [
+        {
+          "titulo": "Identifique el dato que desea comparar.",
+          "texto": "Use la calificación, tiempo, peso u otro valor correspondiente a la persona u objeto que se desea ubicar dentro de su grupo."
+        },
+        {
+          "titulo": "Calcule la diferencia respecto a la media.",
+          "texto": "Reste la media del grupo al valor observado.",
+          "formula": "\\[x-\\bar{x}\\]"
+        },
+        {
+          "titulo": "Divida entre la desviación estándar.",
+          "texto": "El resultado indica cuántas desviaciones estándar se encuentra el dato por encima o por debajo de la media.",
+          "formula": "\\[z=\\frac{x-\\bar{x}}{s}\\]"
+        },
+        {
+          "titulo": "Compare los valores estandarizados.",
+          "texto": "Cuando se comparan desempeños donde un valor mayor representa mejor resultado, un valor z mayor indica una mejor posición relativa."
+        }
+      ]
+    },
+    {
+      "tipo": "nota",
+      "titulo": "Definición importante",
+      "icono": "info",
+      "parrafos": [
+        "La importancia de emplear medidas relativas, como la estandarización o el coeficiente de variación, radica en que nos permiten comparar de forma justa y clara la posición o la variabilidad entre dos o más grupos de datos, aunque tengan distintas escalas.",
+        "Por ejemplo, si queremos saber quién destacó más, una persona que sacó 80 puntos en Matemáticas o alguien que sacó 75 en Español, las medidas relativas nos ayudan a ver en cuál materia esa nota está más arriba del promedio.",
+        "Así, las medidas relativas nos permiten entender mejor la información, tomar decisiones informadas y evitar comparaciones engañosas."
+      ]
+    },
+    {
+      "tipo": "situacionProblema",
       "id": "sp02",
       "titulo": "Situación problema 2",
       "texto": [
@@ -103,102 +208,43 @@
           "Compare los porcentajes obtenidos y responda: ¿para qué especie los pesos mostrados son relativamente más variables?"
         ]
       }
-    }
-  ],
-  "secciones": [
-    {
-      "tipo": "ejemplo",
-      "numero": "01",
-      "subtitulo": "Estandarización",
-      "titulo": "Ejemplo 01",
-      "parrafos": [
-        "A dos instituciones educativas se les aplicó una prueba bajo las mismas condiciones. A continuación, se muestra la tabla con los resultados obtenidos:"
-      ],
-      "tabla": {
-        "encabezados": [
-          "Institución",
-          "Media aritmética",
-          "Desviación estándar",
-          "Mejor nota"
-        ],
-        "filas": [
-          [
-            "CINDEA Y",
-            "78",
-            "4,75",
-            "85"
-          ],
-          [
-            "CINDEA Z",
-            "80",
-            "1,45",
-            "85"
-          ]
-        ]
-      },
-      "pregunta": "¿Cuál fue la institución que obtuvo mejor calificación de acuerdo a su contexto?",
-      "solucionTitulo": "Solución",
-      "solucionParrafos": [
-        "Recurriremos a la estandarización de los datos para determinar cuál tuvo mejor posición de acuerdo a su grupo de datos:"
-      ],
-      "tablaSolucion": {
-        "encabezados": [
-          "",
-          "CINDEA Y",
-          "CINDEA Z"
-        ],
-        "filas": [
-          [
-            "Operación",
-            "(85−78) / 4,75",
-            "(85−80) / 1,45"
-          ],
-          [
-            "Resultado",
-            "1,47",
-            "3,45"
-          ]
-        ]
-      }
     },
     {
-      "tipo": "nota",
-      "titulo": "Definición importante",
-      "icono": "info",
-      "parrafos": [
-        "La importancia de emplear medidas relativas, como la estandarización o el coeficiente de variación, radica en que nos permiten comparar de forma justa y clara la posición o la variabilidad entre dos o más grupos de datos, aunque tengan distintas escalas.",
-        "Por ejemplo, si queremos saber quién destacó más, una persona que sacó 80 puntos en Matemáticas o alguien que sacó 75 en Español, las medidas relativas nos ayudan a ver en cuál materia esa nota está más arriba del promedio.",
-        "Así, las medidas relativas nos permiten entender mejor la información, tomar decisiones informadas y evitar comparaciones engañosas."
+      "tipo": "trabajoCotidiano",
+      "titulo": "Trabajo cotidiano",
+      "icono": "pencil",
+      "instrucciones": [
+        "Resuelva las actividades en su cuaderno y escriba el procedimiento utilizado.",
+        "Utilice las fórmulas de estandarización o coeficiente de variación cuando corresponda."
+      ],
+      "items": [
+        "Explique con sus propias palabras por qué no siempre es correcto comparar dos valores de forma directa.",
+        "Indique qué información necesita para calcular un valor estandarizado.",
+        "Explique qué representa el coeficiente de variación al comparar dos grupos de datos."
       ]
-    }
-  ],
-  "recursos": [
-    {
-      "tipo": "teoria",
-      "titulo": "Estudiar el tema",
-      "descripcion": "Explicación, ejemplos y material de apoyo de la semana.",
-      "url": "",
-      "disponible": false,
-      "abrirEnNuevaPestana": false
     },
     {
-      "tipo": "exelearning",
+      "tipo": "practica",
       "titulo": "Práctica interactiva",
+      "icono": "pencil",
       "descripcion": "Ejercicios autocorregibles con retroalimentación inmediata.",
       "url": "modulos/m70/semana-01/practica/index.html",
       "disponible": false,
-      "abrirEnNuevaPestana": true
+      "abrirEnNuevaPestana": true,
+      "etiquetaBoton": "Iniciar práctica"
     },
     {
-      "tipo": "geogebra",
+      "tipo": "recurso",
+      "recursoTipo": "geogebra",
       "titulo": "Actividad con GeoGebra",
-      "descripcion": "Recurso interactivo cuando la semana lo requiera.",
+      "descripcion": "Recurso interactivo para explorar visualmente el tema cuando la semana lo requiera.",
       "url": "",
       "disponible": false,
       "abrirEnNuevaPestana": true
     },
     {
-      "tipo": "pdf",
+      "tipo": "recurso",
+      "recursoTipo": "pdf",
       "titulo": "Descargar práctica",
       "descripcion": "Versión imprimible del trabajo de la semana.",
       "url": "modulos/m70/semana-01/pdf/practica-semana-01.pdf",

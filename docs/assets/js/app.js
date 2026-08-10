@@ -16,7 +16,11 @@
     link: "bi-link-45deg",
     message: "bi-chat-dots-fill",
     info: "bi-info-circle-fill",
-    check: "bi-check-circle-fill"
+    check: "bi-check-circle-fill",
+    steps: "bi-list-ol",
+    practice: "bi-ui-checks-grid",
+    lightbulb: "bi-lightbulb-fill",
+    download: "bi-download"
   };
 
   const ICON_ALIASES = {
@@ -34,7 +38,7 @@
 
   const ICONOS_RECURSO = {
     teoria: "book",
-    exelearning: "pencil",
+    exelearning: "practice",
     geogebra: "ruler",
     pdf: "file",
     video: "play",
@@ -49,7 +53,7 @@
   }
 
   async function getJSON(path) {
-    const res = await fetch(`${path}?v=0.6.0`, { cache: "no-store" });
+    const res = await fetch(`${path}?v=0.7.0`, { cache: "no-store" });
     if (!res.ok) throw new Error(`No se pudo cargar ${path}`);
     return res.json();
   }
@@ -86,6 +90,11 @@
   function paragraphList(items = []) {
     if (!Array.isArray(items)) return "";
     return items.map(p => `<p>${esc(p)}</p>`).join("");
+  }
+
+  function formulaList(items = []) {
+    if (!Array.isArray(items)) return "";
+    return items.map(f => `<div class="formula-block">${esc(f)}</div>`).join("");
   }
 
   function renderImagen(imagen) {
@@ -169,7 +178,7 @@
     `;
   }
 
-  function renderSituacion(situacion, index) {
+  function renderSituacion(situacion, index = 0) {
     const texto = paragraphList(situacion.texto || []);
     const tabla = renderTabla(situacion.tabla);
 
@@ -178,11 +187,12 @@
       : "";
 
     const hasImage = Boolean(situacion.imagen?.src);
+    const numero = situacion.numero || String(index + 1).padStart(2, "0");
 
     return `
       <section class="panel problem-panel">
-        <div class="problem-number">SITUACIÓN ${String(index + 1).padStart(2, "0")}</div>
-        <h2>${iconHtml("target", "heading-icon")}${esc(situacion.titulo || `Situación problema ${index + 1}`)}</h2>
+        <div class="problem-number">SITUACIÓN ${esc(numero)}</div>
+        <h2>${iconHtml("target", "heading-icon")}${esc(situacion.titulo || "Situación problema")}</h2>
 
         <div class="${hasImage ? "problem-grid" : ""}">
           <div class="problem-copy">${texto}</div>
@@ -210,18 +220,162 @@
           ${seccion.pregunta ? `<p class="example-question">${esc(seccion.pregunta)}</p>` : ""}
           ${seccion.solucionTitulo ? `<h3 class="example-solution-title">${esc(seccion.solucionTitulo)}</h3>` : ""}
           ${paragraphList(seccion.solucionParrafos)}
+          ${formulaList(seccion.formulas)}
           ${renderTabla(seccion.tablaSolucion)}
         </div>
       </section>
     `;
   }
 
-  function renderSeccion(seccion = {}) {
-    const icono = seccion.icono ? iconHtml(seccion.icono, "heading-icon") : "";
+  function renderTeoria(bloque = {}) {
+    return `
+      <section class="theory-panel">
+        <div class="theory-head">
+          ${iconHtml(bloque.icono || "book", "heading-icon")}
+          <h2>${esc(bloque.titulo || "Teoría")}</h2>
+        </div>
+        <div class="theory-body">
+          ${paragraphList(bloque.parrafos)}
+          ${formulaList(bloque.formulas)}
+          ${renderTabla(bloque.tabla)}
+          ${renderImagen(bloque.imagen)}
+        </div>
+      </section>
+    `;
+  }
 
-    if (seccion.tipo === "ejemplo") {
-      return renderEjemplo(seccion);
+  function renderPasoAPaso(bloque = {}) {
+    const pasos = (bloque.pasos || []).map((paso, i) => `
+      <li class="step-item">
+        <div class="step-marker">${i + 1}</div>
+        <div class="step-content">
+          ${paso.titulo ? `<h3>${esc(paso.titulo)}</h3>` : ""}
+          ${paso.texto ? `<p>${esc(paso.texto)}</p>` : ""}
+          ${paso.formula ? `<div class="step-formula">${esc(paso.formula)}</div>` : ""}
+        </div>
+      </li>
+    `).join("");
+
+    return `
+      <section class="steps-panel">
+        <div class="steps-head">
+          ${iconHtml(bloque.icono || "steps", "heading-icon")}
+          <h2>${esc(bloque.titulo || "Paso a paso")}</h2>
+        </div>
+        <ol class="steps-list">${pasos}</ol>
+      </section>
+    `;
+  }
+
+  function renderTrabajoCotidiano(bloque = {}) {
+    const items = (bloque.items || []).map(i => `<li>${esc(i)}</li>`).join("");
+
+    return `
+      <section class="daily-work-panel">
+        <div class="daily-work-head">
+          ${iconHtml(bloque.icono || "pencil", "heading-icon")}
+          <h2>${esc(bloque.titulo || "Trabajo cotidiano")}</h2>
+        </div>
+        <div class="daily-work-body">
+          ${paragraphList(bloque.instrucciones)}
+          ${items ? `<ol class="daily-work-list">${items}</ol>` : ""}
+          ${renderTabla(bloque.tabla)}
+          ${renderImagen(bloque.imagen)}
+        </div>
+      </section>
+    `;
+  }
+
+  function renderPractica(bloque = {}) {
+    const disponible = bloque.disponible === true && Boolean(bloque.url);
+    const boton = disponible
+      ? `<a class="practice-button" href="${esc(bloque.url)}"${bloque.abrirEnNuevaPestana ? ' target="_blank" rel="noopener noreferrer"' : ""}>
+           ${iconHtml("practice", "button-icon")}
+           <span>${esc(bloque.etiquetaBoton || "Iniciar práctica")}</span>
+         </a>`
+      : `<span class="practice-button is-disabled" aria-disabled="true">
+           ${iconHtml("practice", "button-icon")}
+           <span>Próximamente</span>
+         </span>`;
+
+    return `
+      <section class="practice-panel">
+        <div class="practice-icon">${iconHtml("practice")}</div>
+        <div class="practice-copy">
+          <p class="practice-kicker">PRÁCTICA</p>
+          <h2>${esc(bloque.titulo || "Práctica")}</h2>
+          <p>${esc(bloque.descripcion || "")}</p>
+        </div>
+        ${boton}
+      </section>
+    `;
+  }
+
+  function renderNota(seccion = {}) {
+    const icono = seccion.icono ? iconHtml(seccion.icono, "heading-icon") : "";
+    return `
+      <aside class="important-note">
+        ${seccion.titulo ? `<h3>${icono}${esc(seccion.titulo)}</h3>` : ""}
+        ${paragraphList(seccion.parrafos)}
+        ${formulaList(seccion.formulas)}
+      </aside>
+    `;
+  }
+
+  function renderRecursoBloque(bloque = {}) {
+    const recurso = {
+      tipo: bloque.recursoTipo || bloque.tipoRecurso || "enlace",
+      titulo: bloque.titulo,
+      descripcion: bloque.descripcion,
+      url: bloque.url,
+      disponible: bloque.disponible,
+      abrirEnNuevaPestana: bloque.abrirEnNuevaPestana
+    };
+
+    return `
+      <section class="single-resource-panel">
+        ${resourceHTML(recurso)}
+      </section>
+    `;
+  }
+
+  function renderBloque(bloque = {}, index = 0) {
+    switch (bloque.tipo) {
+      case "teoria":
+        return renderTeoria(bloque);
+      case "ejemplo":
+        return renderEjemplo(bloque);
+      case "nota":
+      case "definicion":
+        return renderNota(bloque);
+      case "pasoAPaso":
+      case "paso_a_paso":
+        return renderPasoAPaso(bloque);
+      case "situacionProblema":
+      case "situacion_problema":
+        return renderSituacion(bloque, index);
+      case "trabajoCotidiano":
+      case "trabajo_cotidiano":
+        return renderTrabajoCotidiano(bloque);
+      case "practica":
+        return renderPractica(bloque);
+      case "recurso":
+        return renderRecursoBloque(bloque);
+      case "texto":
+      case "actividad":
+        return renderSeccionLegacy(bloque);
+      default:
+        return `
+          <section class="panel">
+            <h2>${esc(bloque.titulo || "Contenido")}</h2>
+            ${paragraphList(bloque.parrafos)}
+          </section>
+        `;
     }
+  }
+
+  function renderSeccionLegacy(seccion = {}) {
+    const icono = seccion.icono ? iconHtml(seccion.icono, "heading-icon") : "";
 
     if (seccion.tipo === "actividad") {
       const preguntas = (seccion.preguntas || [])
@@ -235,15 +389,6 @@
           ${preguntas ? `<ol class="question-list">${preguntas}</ol>` : ""}
           ${renderImagen(seccion.imagen)}
         </section>
-      `;
-    }
-
-    if (seccion.tipo === "nota" || seccion.tipo === "definicion") {
-      return `
-        <aside class="important-note">
-          ${seccion.titulo ? `<h3>${icono}${esc(seccion.titulo)}</h3>` : ""}
-          ${paragraphList(seccion.parrafos)}
-        </aside>
       `;
     }
 
@@ -344,6 +489,7 @@
       $("#module-description").textContent = mod.descripcion || "";
 
       const weeks = (mod.semanas || []).filter(w => w.publicada);
+
       if (!weeks.length) {
         grid.innerHTML = '<div class="notice">Todavía no hay semanas publicadas para este módulo.</div>';
         return;
@@ -361,10 +507,38 @@
     }
   }
 
+  function legacyContent(data) {
+    const situaciones = Array.isArray(data.situacionesProblema)
+      ? data.situacionesProblema.map(renderSituacion).join("")
+      : "";
+
+    const secciones = Array.isArray(data.secciones)
+      ? data.secciones.map(s => {
+          if (s.tipo === "ejemplo") return renderEjemplo(s);
+          if (s.tipo === "nota" || s.tipo === "definicion") return renderNota(s);
+          return renderSeccionLegacy(s);
+        }).join("")
+      : "";
+
+    const recursos = Array.isArray(data.recursos) && data.recursos.length
+      ? `
+        <section class="panel">
+          <div class="panel-heading-row">
+            <h2>${iconHtml("toolbox", "heading-icon")}Recursos de la semana</h2>
+          </div>
+          <div class="resource-grid">${data.recursos.map(resourceHTML).join("")}</div>
+        </section>
+      `
+      : "";
+
+    return situaciones + secciones + recursos;
+  }
+
   async function renderSemana() {
     const modulo = normalizarRutaModulo(params.get("modulo") || "");
     const semana = normalizarSemana(params.get("semana") || "");
     const content = $("#week-content");
+
     if (!content) return;
 
     if (!modulo || !semana) {
@@ -387,17 +561,9 @@
         .map(i => `<li>${esc(i)}</li>`)
         .join("");
 
-      const situaciones = Array.isArray(data.situacionesProblema)
-        ? data.situacionesProblema.map(renderSituacion).join("")
-        : "";
-
-      const secciones = (data.secciones || [])
-        .map(renderSeccion)
-        .join("");
-
-      const recursos = (data.recursos || [])
-        .map(resourceHTML)
-        .join("");
+      const cuerpo = Array.isArray(data.bloques)
+        ? data.bloques.map(renderBloque).join("")
+        : legacyContent(data);
 
       content.innerHTML = `
         <section class="indicator-box">
@@ -410,22 +576,13 @@
               ? `<span class="indicator-lessons">Lecciones sugeridas ${esc(data.leccionesSugeridas)}</span>`
               : ""}
           </div>
+
           <div class="indicator-box-body">
             <ol class="indicators alpha-list">${indicadores}</ol>
           </div>
         </section>
 
-        ${situaciones}
-        ${secciones}
-
-        <section class="panel">
-          <div class="panel-heading-row">
-            <h2>${iconHtml("toolbox", "heading-icon")}Recursos de la semana</h2>
-          </div>
-          <div class="resource-grid">
-            ${recursos || '<p>Aún no hay recursos publicados.</p>'}
-          </div>
-        </section>
+        ${cuerpo}
 
         ${ayudaHTML(data.ayuda)}
       `;
