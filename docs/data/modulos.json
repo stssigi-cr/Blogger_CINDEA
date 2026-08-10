@@ -1,71 +1,26 @@
 {
+  "version": "0.2.0",
   "sitio": {
     "nombre": "CINDEA Aserrí — Matemática",
-    "docente": "Lic. Sigifredo Quirós Molina"
+    "docente": "Lic. Sigifredo Quirós Molina",
+    "idioma": "es"
   },
   "modulos": [
+    {"id":"m36","nombre":"Módulo 36","descripcion":"Razonamiento de los números, la geometría y el álgebra para la cotidianidad","activo":true,"semanas":[]},
+    {"id":"m40","nombre":"Módulo 40","descripcion":"Matemática","activo":true,"semanas":[]},
+    {"id":"m52","nombre":"Módulo 52","descripcion":"Matemática","activo":true,"semanas":[]},
+    {"id":"m53","nombre":"Módulo 53","descripcion":"Matemática","activo":true,"semanas":[]},
     {
-      "id": "m36",
-      "nombre": "Módulo 36",
-      "descripcion": "Matemática",
-      "activo": true,
-      "semanas": []
-    },
-    {
-      "id": "m40",
-      "nombre": "Módulo 40",
-      "descripcion": "Matemática",
-      "activo": true,
-      "semanas": []
-    },
-    {
-      "id": "m52",
-      "nombre": "Módulo 52",
-      "descripcion": "Matemática",
-      "activo": true,
-      "semanas": []
-    },
-    {
-      "id": "m53",
-      "nombre": "Módulo 53",
-      "descripcion": "Matemática",
-      "activo": true,
-      "semanas": []
-    },
-    {
-      "id": "m70",
-      "nombre": "Módulo 70",
-      "descripcion": "Matemática",
-      "activo": true,
-      "semanas": [
-        {
-          "numero": "01",
-          "titulo": "Semana 01",
-          "tema": "Medidas relativas",
-          "publicada": true
-        }
+      "id":"m70",
+      "nombre":"Módulo 70",
+      "descripcion":"Estadística y probabilidad",
+      "activo":true,
+      "semanas":[
+        {"numero":"01","titulo":"Semana 01","tema":"Medidas relativas","publicada":true}
       ]
     },
-    {
-      "id": "m72",
-      "nombre": "Módulo 72",
-      "descripcion": "Matemática",
-      "activo": true,
-      "semanas": []
-    },
-    {
-      "id": "m74",
-      "nombre": "Módulo 74",
-      "descripcion": "Matemática",
-      "activo": true,
-      "semanas": []
-    },
-    {
-      "id": "m75",
-      "nombre": "Módulo 75",
-      "descripcion": "Matemática",
-      "activo": true,
-      "semanas": []
-    }
+    {"id":"m72","nombre":"Módulo 72","descripcion":"Matemática","activo":true,"semanas":[]},
+    {"id":"m74","nombre":"Módulo 74","descripcion":"Matemática","activo":true,"semanas":[]},
+    {"id":"m75","nombre":"Módulo 75","descripcion":"Matemática","activo":true,"semanas":[]}
   ]
 }

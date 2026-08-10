@@ -3,11 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Portal de Matemática del CINDEA Aserrí">
-  <title>CINDEA Aserrí — Matemática</title>
+  <meta name="description" content="Semana de estudio del portal de Matemática del CINDEA Aserrí">
+  <meta name="color-scheme" content="light">
+  <title>Semana — CINDEA Aserrí</title>
   <link rel="stylesheet" href="assets/css/app.css">
+  <script defer src="assets/js/mathjax-config.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
 </head>
 <body data-page="semana">
+  <a class="skip-link" href="#contenido-principal">Saltar al contenido</a>
   <header class="site-header compact">
     <div class="wrap">
       <a id="back-module" class="back-link" href="index.html">← Volver</a>
@@ -16,11 +20,11 @@
       <p id="week-topic" class="lead"></p>
     </div>
   </header>
-
-  <main class="wrap">
-    <div id="week-content" class="week-layout" aria-live="polite"></div>
+  <main id="contenido-principal" class="wrap">
+    <div id="week-content" class="week-layout" aria-live="polite">
+      <p class="loading">Cargando contenido de la semana…</p>
+    </div>
   </main>
-
   <script src="assets/js/app.js" defer></script>
 </body>
 </html>

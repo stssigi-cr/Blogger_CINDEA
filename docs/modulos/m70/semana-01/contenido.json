@@ -1,30 +1,89 @@
 {
+  "schemaVersion": "0.2",
   "modulo": "Módulo 70",
+  "moduloId": "m70",
   "semana": "01",
   "titulo": "Medidas relativas",
+  "estado": "publicada",
   "leccionesSugeridas": 4,
   "indicadores": [
-    "Identifica la importancia de emplear medidas relativas al comparar la posición o la variabilidad entre dos o más grupos de datos.",
-    "Identifica la información necesaria para calcular medidas relativas, estandarización y coeficiente de variación."
+    "Identifica la importancia de emplear medidas relativas al comparar la posición o la variabilidad entre dos o más grupos de datos, en situaciones en el entorno que evidencia.",
+    "Identifica la información para calcular las medidas relativas, estandarización y el coeficiente de variación que contribuyan a resolver el problema planteado."
   ],
   "situacionProblema": {
     "titulo": "Situación problema",
-    "texto": "Coloque aquí el texto de la situación problema de la semana.",
-    "imagen": ""
+    "texto": [
+      "Sofía compite en natación. En la última competencia nadó 100 metros en 1 minuto con 12 segundos. Juan compite en atletismo. En su prueba, corrió 400 metros en 58 segundos.",
+      "En natación, el promedio de tiempo fue 1 minuto con 15 segundos, y la mayoría de participantes estuvo entre 1:12 y 1:18. En atletismo, el promedio fue 60 segundos, y la mayoría de participantes corrió entre 56 y 64 segundos.",
+      "Ambos quieren saber: ¿quién tuvo un mejor rendimiento dentro de su disciplina?"
+    ],
+    "imagen": {
+      "src": "",
+      "alt": "Ilustración de Sofía en natación y Juan en atletismo.",
+      "pie": ""
+    }
   },
   "secciones": [
     {
+      "tipo": "actividad",
       "titulo": "Trabajo estudiantil independiente",
-      "contenido": "Agregue aquí las instrucciones, preguntas guía y materiales de estudio."
+      "icono": "✏️",
+      "introduccion": [
+        "Observe los datos y responda en su cuaderno."
+      ],
+      "preguntas": [
+        "¿Podemos decir quién tuvo un mejor rendimiento solo mirando los tiempos?",
+        "¿Podría ser injusto comparar los segundos directamente? ¿Por qué?"
+      ]
+    },
+    {
+      "tipo": "texto",
+      "titulo": "Recordatorio matemático",
+      "icono": "📘",
+      "parrafos": [
+        "Una medida relativa permite comparar un valor con respecto al comportamiento del grupo al que pertenece.",
+        "Por ejemplo, el coeficiente de variación puede expresarse como \\(CV=\\frac{s}{\\bar{x}}\\times 100\\%\\)."
+      ]
     }
   ],
   "recursos": [
     {
+      "tipo": "teoria",
+      "titulo": "Estudiar el tema",
+      "descripcion": "Explicación, ejemplos y material de apoyo de la semana.",
+      "url": "",
+      "disponible": false,
+      "abrirEnNuevaPestana": false
+    },
+    {
       "tipo": "exelearning",
       "titulo": "Práctica interactiva",
-      "descripcion": "Práctica autocorregible de la semana.",
+      "descripcion": "Ejercicios autocorregibles con retroalimentación inmediata.",
       "url": "modulos/m70/semana-01/practica/index.html",
-      "disponible": false
+      "disponible": false,
+      "abrirEnNuevaPestana": true
+    },
+    {
+      "tipo": "geogebra",
+      "titulo": "Actividad con GeoGebra",
+      "descripcion": "Recurso interactivo cuando la semana lo requiera.",
+      "url": "",
+      "disponible": false,
+      "abrirEnNuevaPestana": true
+    },
+    {
+      "tipo": "pdf",
+      "titulo": "Descargar práctica",
+      "descripcion": "Versión imprimible del trabajo de la semana.",
+      "url": "modulos/m70/semana-01/pdf/practica-semana-01.pdf",
+      "disponible": false,
+      "abrirEnNuevaPestana": true
     }
-  ]
+  ],
+  "ayuda": {
+    "mostrar": true,
+    "titulo": "¿Necesita ayuda?",
+    "texto": "Puede enviar un mensaje al profesor desde el portal principal.",
+    "url": ""
+  }
 }
