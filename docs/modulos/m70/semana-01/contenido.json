@@ -1,5 +1,5 @@
 {
-  "schemaVersion": "0.5",
+  "schemaVersion": "0.6",
   "modulo": "Módulo 70",
   "moduloId": "m70",
   "semana": "01",
@@ -107,12 +107,68 @@
   ],
   "secciones": [
     {
-      "tipo": "texto",
-      "titulo": "Recordatorio matemático",
-      "icono": "book",
+      "tipo": "ejemplo",
+      "numero": "01",
+      "subtitulo": "Estandarización",
+      "titulo": "Ejemplo 01",
       "parrafos": [
-        "Una medida relativa permite comparar un valor con respecto al comportamiento del grupo al que pertenece.",
-        "El coeficiente de variación puede calcularse mediante \\[CV=\\frac{s}{\\bar{x}}\\times 100\\%\\]"
+        "A dos instituciones educativas se les aplicó una prueba bajo las mismas condiciones. A continuación, se muestra la tabla con los resultados obtenidos:"
+      ],
+      "tabla": {
+        "encabezados": [
+          "Institución",
+          "Media aritmética",
+          "Desviación estándar",
+          "Mejor nota"
+        ],
+        "filas": [
+          [
+            "CINDEA Y",
+            "78",
+            "4,75",
+            "85"
+          ],
+          [
+            "CINDEA Z",
+            "80",
+            "1,45",
+            "85"
+          ]
+        ]
+      },
+      "pregunta": "¿Cuál fue la institución que obtuvo mejor calificación de acuerdo a su contexto?",
+      "solucionTitulo": "Solución",
+      "solucionParrafos": [
+        "Recurriremos a la estandarización de los datos para determinar cuál tuvo mejor posición de acuerdo a su grupo de datos:"
+      ],
+      "tablaSolucion": {
+        "encabezados": [
+          "",
+          "CINDEA Y",
+          "CINDEA Z"
+        ],
+        "filas": [
+          [
+            "Operación",
+            "(85−78) / 4,75",
+            "(85−80) / 1,45"
+          ],
+          [
+            "Resultado",
+            "1,47",
+            "3,45"
+          ]
+        ]
+      }
+    },
+    {
+      "tipo": "nota",
+      "titulo": "Definición importante",
+      "icono": "info",
+      "parrafos": [
+        "La importancia de emplear medidas relativas, como la estandarización o el coeficiente de variación, radica en que nos permiten comparar de forma justa y clara la posición o la variabilidad entre dos o más grupos de datos, aunque tengan distintas escalas.",
+        "Por ejemplo, si queremos saber quién destacó más, una persona que sacó 80 puntos en Matemáticas o alguien que sacó 75 en Español, las medidas relativas nos ayudan a ver en cuál materia esa nota está más arriba del promedio.",
+        "Así, las medidas relativas nos permiten entender mejor la información, tomar decisiones informadas y evitar comparaciones engañosas."
       ]
     }
   ],

@@ -4,10 +4,6 @@
   const $ = (sel) => document.querySelector(sel);
   const params = new URLSearchParams(location.search);
 
-  /*
-   * Bootstrap Icons.
-   * No usamos emojis ni SVG dibujados por la aplicación.
-   */
   const ICONOS = {
     pin: "bi-pin-angle-fill",
     target: "bi-bullseye",
@@ -53,7 +49,7 @@
   }
 
   async function getJSON(path) {
-    const res = await fetch(`${path}?v=0.5.0`, { cache: "no-store" });
+    const res = await fetch(`${path}?v=0.6.0`, { cache: "no-store" });
     if (!res.ok) throw new Error(`No se pudo cargar ${path}`);
     return res.json();
   }
@@ -94,7 +90,6 @@
 
   function renderImagen(imagen) {
     if (!imagen || !imagen.src) return "";
-
     return `
       <figure class="content-figure">
         <img
@@ -107,39 +102,28 @@
     `;
   }
 
-  /*
-   * Tabla v0.5:
-   * - Escritorio/tablet: tabla tradicional ocupando TODO el ancho del panel.
-   * - Teléfono: tarjetas por especie.
-   * No existe overflow-x ni barra horizontal.
-   */
   function renderTabla(tabla) {
     if (!tabla?.encabezados?.length || !tabla?.filas?.length) return "";
 
     const headers = tabla.encabezados;
     const numericHeaders = headers.slice(1);
 
-    const head = headers
-      .map(h => `<th scope="col">${esc(h)}</th>`)
-      .join("");
-
+    const head = headers.map(h => `<th scope="col">${esc(h)}</th>`).join("");
     const rows = tabla.filas.map(fila => `
       <tr>
-        ${fila.map((c, j) =>
-          j === 0
-            ? `<th scope="row">${esc(c)}</th>`
-            : `<td>${esc(c)}</td>`
+        ${fila.map((c, j) => j === 0
+          ? `<th scope="row">${esc(c)}</th>`
+          : `<td>${esc(c)}</td>`
         ).join("")}
       </tr>
     `).join("");
 
     const cards = tabla.filas.map(fila => {
-      const especie = fila[0];
+      const encabezado = fila[0];
       const valores = fila.slice(1);
-
       return `
         <section class="data-card">
-          <h4>${esc(especie)}</h4>
+          <h4>${esc(encabezado || "Fila")}</h4>
           <div class="data-card-grid">
             ${valores.map((valor, i) => `
               <div class="data-cell">
@@ -160,16 +144,11 @@
               <col class="label-col">
               ${numericHeaders.map(() => '<col class="value-col">').join("")}
             </colgroup>
-            <thead>
-              <tr>${head}</tr>
-            </thead>
+            <thead><tr>${head}</tr></thead>
             <tbody>${rows}</tbody>
           </table>
         </div>
-
-        <div class="table-mobile">
-          ${cards}
-        </div>
+        <div class="table-mobile">${cards}</div>
       </div>
     `;
   }
@@ -183,16 +162,9 @@
 
     return `
       <div class="problem-activity">
-        <h3>
-          ${iconHtml("pencil", "heading-icon")}
-          ${esc(actividad.titulo || "Trabajo estudiantil independiente")}
-        </h3>
-
+        <h3>${iconHtml("pencil", "heading-icon")}${esc(actividad.titulo || "Trabajo estudiantil independiente")}</h3>
         ${paragraphList(actividad.introduccion)}
-
-        ${preguntas
-          ? `<ol class="question-list alpha-list">${preguntas}</ol>`
-          : ""}
+        ${preguntas ? `<ol class="question-list alpha-list">${preguntas}</ol>` : ""}
       </div>
     `;
   }
@@ -209,39 +181,47 @@
 
     return `
       <section class="panel problem-panel">
-        <div class="problem-number">
-          SITUACIÓN ${String(index + 1).padStart(2, "0")}
-        </div>
+        <div class="problem-number">SITUACIÓN ${String(index + 1).padStart(2, "0")}</div>
+        <h2>${iconHtml("target", "heading-icon")}${esc(situacion.titulo || `Situación problema ${index + 1}`)}</h2>
 
-        <h2>
-          ${iconHtml("target", "heading-icon")}
-          ${esc(situacion.titulo || `Situación problema ${index + 1}`)}
-        </h2>
-
-        <!-- Texto e imagen -->
         <div class="${hasImage ? "problem-grid" : ""}">
-          <div class="problem-copy">
-            ${texto}
-          </div>
-
+          <div class="problem-copy">${texto}</div>
           ${renderImagen(situacion.imagen)}
         </div>
 
-        <!-- IMPORTANTE: la tabla queda fuera de problem-grid.
-             Así puede usar el ancho completo del panel. -->
         ${tabla}
-
         ${preguntaClave}
-
         ${renderActividad(situacion.actividad)}
       </section>
     `;
   }
 
+  function renderEjemplo(seccion = {}) {
+    return `
+      <section class="example-panel">
+        <div class="example-head">
+          <span class="example-number">${esc(seccion.titulo || "Ejemplo")}</span>
+          ${seccion.subtitulo ? `<span class="example-subtitle">${esc(seccion.subtitulo)}</span>` : ""}
+        </div>
+
+        <div class="example-body">
+          ${paragraphList(seccion.parrafos)}
+          ${renderTabla(seccion.tabla)}
+          ${seccion.pregunta ? `<p class="example-question">${esc(seccion.pregunta)}</p>` : ""}
+          ${seccion.solucionTitulo ? `<h3 class="example-solution-title">${esc(seccion.solucionTitulo)}</h3>` : ""}
+          ${paragraphList(seccion.solucionParrafos)}
+          ${renderTabla(seccion.tablaSolucion)}
+        </div>
+      </section>
+    `;
+  }
+
   function renderSeccion(seccion = {}) {
-    const icono = seccion.icono
-      ? iconHtml(seccion.icono, "heading-icon")
-      : "";
+    const icono = seccion.icono ? iconHtml(seccion.icono, "heading-icon") : "";
+
+    if (seccion.tipo === "ejemplo") {
+      return renderEjemplo(seccion);
+    }
 
     if (seccion.tipo === "actividad") {
       const preguntas = (seccion.preguntas || [])
@@ -258,10 +238,10 @@
       `;
     }
 
-    if (seccion.tipo === "nota") {
+    if (seccion.tipo === "nota" || seccion.tipo === "definicion") {
       return `
-        <aside class="panel note-panel">
-          <h2>${icono}${esc(seccion.titulo || "")}</h2>
+        <aside class="important-note">
+          ${seccion.titulo ? `<h3>${icono}${esc(seccion.titulo)}</h3>` : ""}
           ${paragraphList(seccion.parrafos)}
         </aside>
       `;
@@ -284,7 +264,6 @@
       return `
         <div class="resource disabled" aria-disabled="true">
           <div class="resource-icon">${iconHtml(iconName)}</div>
-
           <div class="resource-body">
             <strong>${esc(r.titulo || "Recurso")}</strong>
             <span>${esc(r.descripcion || "")}</span>
@@ -294,14 +273,11 @@
       `;
     }
 
-    const target = r.abrirEnNuevaPestana
-      ? ' target="_blank" rel="noopener noreferrer"'
-      : "";
+    const target = r.abrirEnNuevaPestana ? ' target="_blank" rel="noopener noreferrer"' : "";
 
     return `
       <a class="resource" href="${esc(r.url)}"${target}>
         <div class="resource-icon">${iconHtml(iconName)}</div>
-
         <div class="resource-body">
           <strong>${esc(r.titulo || "Recurso")}</strong>
           <span>${esc(r.descripcion || "")}</span>
@@ -314,10 +290,7 @@
   function ayudaHTML(ayuda = {}) {
     if (!ayuda.mostrar) return "";
 
-    const label = `
-      ${iconHtml("message", "button-icon")}
-      <span>Enviar mensaje</span>
-    `;
+    const label = `${iconHtml("message", "button-icon")}<span>Enviar mensaje</span>`;
 
     const boton = ayuda.url
       ? `<a class="button-primary" href="${esc(ayuda.url)}">${label}</a>`
@@ -330,7 +303,6 @@
           <h2>${esc(ayuda.titulo || "¿Necesita ayuda?")}</h2>
           <p>${esc(ayuda.texto || "")}</p>
         </div>
-
         ${boton}
       </section>
     `;
@@ -339,12 +311,10 @@
   async function renderInicio() {
     const grid = $("#module-grid");
     if (!grid) return;
-
     grid.innerHTML = '<p class="loading">Cargando módulos…</p>';
 
     try {
       const data = await getJSON("data/modulos.json");
-
       grid.innerHTML = data.modulos
         .filter(m => m.activo)
         .map(m => `
@@ -354,7 +324,6 @@
             <p>${esc(m.descripcion || "")}</p>
           </a>
         `).join("");
-
     } catch (err) {
       grid.innerHTML = `<div class="error">${esc(err.message)}</div>`;
     }
@@ -368,7 +337,6 @@
     try {
       const data = await getJSON("data/modulos.json");
       const mod = data.modulos.find(m => m.id === id && m.activo);
-
       if (!mod) throw new Error("El módulo solicitado no existe.");
 
       document.title = `${mod.nombre} — CINDEA Aserrí`;
@@ -376,22 +344,18 @@
       $("#module-description").textContent = mod.descripcion || "";
 
       const weeks = (mod.semanas || []).filter(w => w.publicada);
-
       if (!weeks.length) {
-        grid.innerHTML =
-          '<div class="notice">Todavía no hay semanas publicadas para este módulo.</div>';
+        grid.innerHTML = '<div class="notice">Todavía no hay semanas publicadas para este módulo.</div>';
         return;
       }
 
       grid.innerHTML = weeks.map(w => `
-        <a class="card"
-           href="semana.html?modulo=${encodeURIComponent(mod.id)}&semana=${encodeURIComponent(w.numero)}">
+        <a class="card" href="semana.html?modulo=${encodeURIComponent(mod.id)}&semana=${encodeURIComponent(w.numero)}">
           <span class="code">SEMANA ${esc(w.numero)}</span>
           <h3>${esc(w.titulo)}</h3>
           <p>${esc(w.tema || "")}</p>
         </a>
       `).join("");
-
     } catch (err) {
       grid.innerHTML = `<div class="error">${esc(err.message)}</div>`;
     }
@@ -401,35 +365,23 @@
     const modulo = normalizarRutaModulo(params.get("modulo") || "");
     const semana = normalizarSemana(params.get("semana") || "");
     const content = $("#week-content");
-
     if (!content) return;
 
     if (!modulo || !semana) {
-      content.innerHTML =
-        '<div class="error">Faltan datos válidos para abrir la semana.</div>';
+      content.innerHTML = '<div class="error">Faltan datos válidos para abrir la semana.</div>';
       return;
     }
 
-    $("#back-module").href =
-      `modulo.html?id=${encodeURIComponent(modulo)}`;
+    $("#back-module").href = `modulo.html?id=${encodeURIComponent(modulo)}`;
 
     try {
-      const path =
-        `modulos/${modulo}/semana-${semana}/contenido.json`;
-
+      const path = `modulos/${modulo}/semana-${semana}/contenido.json`;
       const data = await getJSON(path);
 
-      document.title =
-        `${data.modulo} · Semana ${data.semana} — CINDEA Aserrí`;
-
-      $("#week-kicker").textContent =
-        `CINDEA ASERRÍ · ${data.modulo}`;
-
-      $("#week-title").textContent =
-        `Semana ${data.semana}`;
-
-      $("#week-topic").textContent =
-        data.titulo || "";
+      document.title = `${data.modulo} · Semana ${data.semana} — CINDEA Aserrí`;
+      $("#week-kicker").textContent = `CINDEA ASERRÍ · ${data.modulo}`;
+      $("#week-title").textContent = `Semana ${data.semana}`;
+      $("#week-topic").textContent = data.titulo || "";
 
       const indicadores = (data.indicadores || [])
         .map(i => `<li>${esc(i)}</li>`)
@@ -448,35 +400,28 @@
         .join("");
 
       content.innerHTML = `
-        <section class="panel indicators-panel">
-          <div class="panel-heading-row">
-            <h2>
+        <section class="indicator-box">
+          <div class="indicator-box-head">
+            <div class="indicator-box-title">
               ${iconHtml("pin", "heading-icon")}
-              Indicadores del trabajo cotidiano
-            </h2>
-
+              <span>Indicadores del trabajo cotidiano</span>
+            </div>
             ${data.leccionesSugeridas
-              ? `<span class="lesson-badge">${esc(data.leccionesSugeridas)} lecciones sugeridas</span>`
+              ? `<span class="indicator-lessons">Lecciones sugeridas ${esc(data.leccionesSugeridas)}</span>`
               : ""}
           </div>
-
-          <ol class="indicators alpha-list">
-            ${indicadores}
-          </ol>
+          <div class="indicator-box-body">
+            <ol class="indicators alpha-list">${indicadores}</ol>
+          </div>
         </section>
 
         ${situaciones}
-
         ${secciones}
 
         <section class="panel">
           <div class="panel-heading-row">
-            <h2>
-              ${iconHtml("toolbox", "heading-icon")}
-              Recursos de la semana
-            </h2>
+            <h2>${iconHtml("toolbox", "heading-icon")}Recursos de la semana</h2>
           </div>
-
           <div class="resource-grid">
             ${recursos || '<p>Aún no hay recursos publicados.</p>'}
           </div>
@@ -486,15 +431,12 @@
       `;
 
       await typesetMath(content);
-
     } catch (err) {
-      content.innerHTML =
-        `<div class="error">${esc(err.message)}</div>`;
+      content.innerHTML = `<div class="error">${esc(err.message)}</div>`;
     }
   }
 
   const page = document.body.dataset.page;
-
   if (page === "inicio") renderInicio();
   if (page === "modulo") renderModulo();
   if (page === "semana") renderSemana();
