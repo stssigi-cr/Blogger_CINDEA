@@ -1,5 +1,5 @@
 {
-  "schemaVersion": "0.3",
+  "schemaVersion": "0.4",
   "modulo": "Módulo 70",
   "moduloId": "m70",
   "semana": "01",
@@ -109,7 +109,7 @@
     {
       "tipo": "texto",
       "titulo": "Recordatorio matemático",
-      "icono": "📘",
+      "icono": "book",
       "parrafos": [
         "Una medida relativa permite comparar un valor con respecto al comportamiento del grupo al que pertenece.",
         "El coeficiente de variación puede calcularse mediante \\[CV=\\frac{s}{\\bar{x}}\\times 100\\%\\]"
