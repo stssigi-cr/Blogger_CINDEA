@@ -848,3 +848,83 @@ mjx-container[display="true"] {
     font-size: .9rem;
   }
 }
+
+
+/* =========================================================
+   v0.8 - multimedia, recursos incrustados y bloques opcionales
+   ========================================================= */
+.media-panel{
+  overflow:hidden;
+  border:1px solid #cfd3d8;
+  border-radius:8px;
+  background:#fff;
+  box-shadow:var(--shadow);
+}
+.media-head{
+  display:flex;
+  align-items:center;
+  padding:12px 16px;
+  background:#eef1f5;
+  border-bottom:1px solid #cfd3d8;
+}
+.media-head h2{margin:0;font-size:1.28rem}
+.media-head .ui-icon{color:#385fa8}
+.media-body{padding:18px 20px}
+.media-body>p{
+  text-align:justify;
+  text-justify:inter-word;
+  hyphens:auto;
+}
+.responsive-frame{
+  width:100%;
+  margin:14px 0;
+  overflow:hidden;
+  border:1px solid #d8d8d8;
+  border-radius:10px;
+  background:#f2f2f2;
+}
+.responsive-frame iframe{
+  display:block;
+  width:100%;
+  border:0;
+}
+.video-frame{aspect-ratio:16/9}
+.video-frame iframe{height:100%;min-height:280px}
+.geogebra-frame iframe,
+.exe-frame iframe,
+.pdf-frame iframe{height:var(--embed-height,620px)}
+.media-link{
+  display:inline-flex;
+  align-items:center;
+  gap:.45rem;
+  margin-top:8px;
+  margin-right:10px;
+  padding:9px 12px;
+  border:1px solid #c9c9c9;
+  border-radius:9px;
+  background:#fff;
+  color:#385fa8;
+  font-weight:800;
+  text-decoration:none;
+}
+.media-link:hover{background:#f4f6f8}
+.media-actions{display:flex;gap:8px;flex-wrap:wrap}
+.exelearning-panel .media-head{background:#f0eafb}
+.exelearning-panel .media-head .ui-icon{color:#66559a}
+.geogebra-panel .media-head{background:#e8f2ef}
+.geogebra-panel .media-head .ui-icon{color:#2f7357}
+.pdf-panel .media-head{background:#f8ecec}
+.pdf-panel .media-head .ui-icon{color:#a23d3d}
+.example-conclusion{
+  margin-top:14px;
+  padding:10px 12px;
+  border-left:4px solid #385fa8;
+  background:#f1f5fb;
+}
+@media(max-width:760px){
+  .video-frame iframe{min-height:210px}
+  .geogebra-frame iframe{height:min(560px,var(--embed-height,560px))}
+  .exe-frame iframe{height:min(650px,var(--embed-height,650px))}
+  .pdf-frame{display:none}
+  .media-link{width:100%;justify-content:center;margin-right:0}
+}

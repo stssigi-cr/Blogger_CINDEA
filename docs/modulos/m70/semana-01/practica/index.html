@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Práctica interactiva - Semana 01</title>
+<style>
+:root{font-family:Arial,Helvetica,sans-serif;color:#20242a;background:#f7f6f1}
+*{box-sizing:border-box}
+body{margin:0;padding:22px}
+main{max-width:900px;margin:auto}
+header{background:#385fa8;color:#fff;padding:18px 20px;border-radius:12px 12px 0 0}
+header h1{margin:0;font-size:1.6rem}
+.card{background:#fff;border:1px solid #ddd7cb;padding:20px;margin:16px 0;border-radius:12px}
+.question{font-weight:700;margin-bottom:10px}
+label{display:block;padding:9px 10px;margin:6px 0;border:1px solid #d9d9d9;border-radius:8px;cursor:pointer}
+button{border:0;border-radius:10px;padding:12px 18px;background:#b85c00;color:#fff;font-weight:800;font-size:1rem;cursor:pointer}
+.feedback{margin-top:8px;font-weight:700}
+.ok{color:#177245}.bad{color:#9b2c2c}
+.result{font-size:1.1rem;font-weight:800;margin:18px 0}
+small{color:#606872}
+</style>
+</head>
+<body>
+<main>
+<header>
+<h1>Práctica interactiva - Medidas relativas</h1>
+<p>Prueba de integración en GitHub Pages. Esta carpeta puede sustituirse después por una exportación real de eXeLearning sin cambiar la URL.</p>
+</header>
+
+<form id="quiz">
+<div class="card" data-answer="b">
+<div class="question">1. ¿Para qué sirve un valor estandarizado?</div>
+<label><input type="radio" name="q1" value="a"> Para cambiar las unidades de medición.</label>
+<label><input type="radio" name="q1" value="b"> Para ubicar un dato respecto a la media y la desviación estándar de su grupo.</label>
+<label><input type="radio" name="q1" value="c"> Para calcular únicamente la media.</label>
+<label><input type="radio" name="q1" value="d"> Para eliminar la variabilidad.</label>
+<div class="feedback"></div>
+</div>
+
+<div class="card" data-answer="c">
+<div class="question">2. Si x = 85, x̄ = 78 y s = 4,75, ¿cuál es aproximadamente z?</div>
+<label><input type="radio" name="q2" value="a"> 0,68</label>
+<label><input type="radio" name="q2" value="b"> 1,00</label>
+<label><input type="radio" name="q2" value="c"> 1,47</label>
+<label><input type="radio" name="q2" value="d"> 3,45</label>
+<div class="feedback"></div>
+</div>
+
+<div class="card" data-answer="d">
+<div class="question">3. Grupo A: media 50 y s = 5. Grupo B: media 80 y s = 12. ¿Cuál tiene mayor variabilidad relativa?</div>
+<label><input type="radio" name="q3" value="a"> Ambos tienen la misma.</label>
+<label><input type="radio" name="q3" value="b"> No puede determinarse.</label>
+<label><input type="radio" name="q3" value="c"> Grupo A, porque 5 es menor que 12.</label>
+<label><input type="radio" name="q3" value="d"> Grupo B, porque CV = 15 % frente a 10 %.</label>
+<div class="feedback"></div>
+</div>
+
+<div class="card" data-answer="b">
+<div class="question">4. Si dos grupos usan escalas diferentes, ¿qué medida ayuda a comparar su variabilidad?</div>
+<label><input type="radio" name="q4" value="a"> La suma de los datos.</label>
+<label><input type="radio" name="q4" value="b"> El coeficiente de variación.</label>
+<label><input type="radio" name="q4" value="c"> El dato máximo solamente.</label>
+<label><input type="radio" name="q4" value="d"> El número de observaciones solamente.</label>
+<div class="feedback"></div>
+</div>
+
+<button type="submit">Revisar respuestas</button>
+<div id="result" class="result" aria-live="polite"></div>
+</form>
+<small>Esta actividad no guarda datos personales ni calificaciones.</small>
+</main>
+
+<script>
+document.getElementById('quiz').addEventListener('submit', function(e){
+  e.preventDefault();
+  const cards=[...document.querySelectorAll('.card')];
+  let score=0;
+  cards.forEach((card,i)=>{
+    const selected=card.querySelector('input:checked');
+    const fb=card.querySelector('.feedback');
+    if(selected && selected.value===card.dataset.answer){
+      score++;
+      fb.textContent='Respuesta correcta.';
+      fb.className='feedback ok';
+    }else{
+      fb.textContent='Revise la respuesta e intente nuevamente.';
+      fb.className='feedback bad';
+    }
+  });
+  document.getElementById('result').textContent=`Resultado: ${score} de ${cards.length}`;
+});
+</script>
+</body>
+</html>

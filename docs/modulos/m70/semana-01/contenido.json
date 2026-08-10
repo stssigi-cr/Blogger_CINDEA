@@ -1,5 +1,5 @@
 {
-  "schemaVersion": "0.7",
+  "schemaVersion": "0.8",
   "modulo": "Módulo 70",
   "moduloId": "m70",
   "semana": "01",
@@ -13,6 +13,7 @@
   "bloques": [
     {
       "tipo": "teoria",
+      "mostrar": true,
       "titulo": "¿Qué son las medidas relativas?",
       "icono": "book",
       "parrafos": [
@@ -23,6 +24,15 @@
         "\\[z=\\frac{x-\\bar{x}}{s}\\]",
         "\\[CV=\\frac{s}{\\bar{x}}\\times100\\%\\]"
       ]
+    },
+    {
+      "tipo": "video",
+      "mostrar": true,
+      "titulo": "Video de apoyo: coeficiente de variación",
+      "descripcion": "Explicación en español sobre qué es el coeficiente de variación, cómo calcularlo e interpretarlo.",
+      "proveedor": "youtube",
+      "videoId": "m2oRoby3IwU",
+      "url": "https://www.youtube.com/watch?v=m2oRoby3IwU"
     },
     {
       "tipo": "situacionProblema",
@@ -47,7 +57,8 @@
           "¿Podemos decir quién tuvo un mejor rendimiento solo mirando los tiempos?",
           "¿Podría ser injusto comparar los segundos directamente? ¿Por qué?"
         ]
-      }
+      },
+      "mostrar": true
     },
     {
       "tipo": "ejemplo",
@@ -102,30 +113,93 @@
             "3,45"
           ]
         ]
-      }
+      },
+      "mostrar": true
     },
     {
       "tipo": "pasoAPaso",
-      "titulo": "Paso a paso: estandarizar un dato",
+      "mostrar": true,
+      "titulo": "Ejemplo guiado 1: estandarizar una nota",
       "icono": "check",
       "pasos": [
         {
-          "titulo": "Identifique el dato que desea comparar.",
-          "texto": "Use la calificación, tiempo, peso u otro valor correspondiente a la persona u objeto que se desea ubicar dentro de su grupo."
+          "titulo": "Identifique los datos.",
+          "texto": "Para CINDEA Y se tiene x = 85, media 78 y desviación estándar 4,75."
         },
         {
-          "titulo": "Calcule la diferencia respecto a la media.",
-          "texto": "Reste la media del grupo al valor observado.",
-          "formula": "\\[x-\\bar{x}\\]"
+          "titulo": "Reste la media al valor.",
+          "texto": "Calcule la diferencia entre la nota y la media.",
+          "formula": "\\[85-78=7\\]"
         },
         {
           "titulo": "Divida entre la desviación estándar.",
-          "texto": "El resultado indica cuántas desviaciones estándar se encuentra el dato por encima o por debajo de la media.",
-          "formula": "\\[z=\\frac{x-\\bar{x}}{s}\\]"
+          "formula": "\\[z=\\frac{7}{4,75}\\approx1,47\\]"
         },
         {
-          "titulo": "Compare los valores estandarizados.",
-          "texto": "Cuando se comparan desempeños donde un valor mayor representa mejor resultado, un valor z mayor indica una mejor posición relativa."
+          "titulo": "Interprete.",
+          "texto": "La nota se ubica aproximadamente 1,47 desviaciones estándar por encima de la media."
+        }
+      ]
+    },
+    {
+      "tipo": "ejemplo",
+      "mostrar": true,
+      "titulo": "Ejemplo 02",
+      "subtitulo": "Coeficiente de variación",
+      "parrafos": [
+        "Se desean comparar dos grupos que poseen medias y desviaciones estándar diferentes."
+      ],
+      "tabla": {
+        "encabezados": [
+          "Grupo",
+          "Media",
+          "Desviación estándar"
+        ],
+        "filas": [
+          [
+            "A",
+            "50",
+            "5"
+          ],
+          [
+            "B",
+            "80",
+            "12"
+          ]
+        ]
+      },
+      "pregunta": "¿Cuál grupo presenta mayor variabilidad relativa?",
+      "solucionTitulo": "Solución",
+      "solucionParrafos": [
+        "Calculamos el coeficiente de variación de cada grupo."
+      ],
+      "formulas": [
+        "\\[CV_A=\\frac{5}{50}\\times100\\%=10\\%\\]",
+        "\\[CV_B=\\frac{12}{80}\\times100\\%=15\\%\\]"
+      ],
+      "conclusion": "El grupo B presenta mayor variabilidad relativa porque su coeficiente de variación es mayor."
+    },
+    {
+      "tipo": "pasoAPaso",
+      "mostrar": true,
+      "titulo": "Ejemplo guiado 2: calcular el coeficiente de variación",
+      "icono": "check",
+      "pasos": [
+        {
+          "titulo": "Identifique la media y la desviación estándar.",
+          "texto": "Para el grupo B: media = 80 y s = 12."
+        },
+        {
+          "titulo": "Divida la desviación estándar entre la media.",
+          "formula": "\\[\\frac{12}{80}=0,15\\]"
+        },
+        {
+          "titulo": "Multiplique por 100 %.",
+          "formula": "\\[0,15\\times100\\%=15\\%\\]"
+        },
+        {
+          "titulo": "Interprete.",
+          "texto": "La desviación estándar representa un 15 % de la media del grupo."
         }
       ]
     },
@@ -137,7 +211,8 @@
         "La importancia de emplear medidas relativas, como la estandarización o el coeficiente de variación, radica en que nos permiten comparar de forma justa y clara la posición o la variabilidad entre dos o más grupos de datos, aunque tengan distintas escalas.",
         "Por ejemplo, si queremos saber quién destacó más, una persona que sacó 80 puntos en Matemáticas o alguien que sacó 75 en Español, las medidas relativas nos ayudan a ver en cuál materia esa nota está más arriba del promedio.",
         "Así, las medidas relativas nos permiten entender mejor la información, tomar decisiones informadas y evitar comparaciones engañosas."
-      ]
+      ],
+      "mostrar": true
     },
     {
       "tipo": "situacionProblema",
@@ -207,10 +282,21 @@
           "Divida, para cada población, la desviación estándar entre su media y multiplique el resultado por 100 %.",
           "Compare los porcentajes obtenidos y responda: ¿para qué especie los pesos mostrados son relativamente más variables?"
         ]
-      }
+      },
+      "mostrar": true
+    },
+    {
+      "tipo": "geogebra",
+      "mostrar": true,
+      "titulo": "Exploración con GeoGebra: medidas de dispersión",
+      "descripcion": "Mueva los datos y observe cómo cambian la media, la desviación estándar y el coeficiente de variación.",
+      "materialId": "wembyyxu",
+      "url": "https://www.geogebra.org/m/wembyyxu",
+      "altura": 620
     },
     {
       "tipo": "trabajoCotidiano",
+      "mostrar": true,
       "titulo": "Trabajo cotidiano",
       "icono": "pencil",
       "instrucciones": [
@@ -224,32 +310,26 @@
       ]
     },
     {
-      "tipo": "practica",
+      "tipo": "exelearning",
+      "mostrar": true,
       "titulo": "Práctica interactiva",
-      "icono": "pencil",
-      "descripcion": "Ejercicios autocorregibles con retroalimentación inmediata.",
+      "descripcion": "Práctica de integración alojada en GitHub Pages. La carpeta está preparada para sustituirse por una exportación real de eXeLearning.",
       "url": "modulos/m70/semana-01/practica/index.html",
-      "disponible": false,
-      "abrirEnNuevaPestana": true,
-      "etiquetaBoton": "Iniciar práctica"
-    },
-    {
-      "tipo": "recurso",
-      "recursoTipo": "geogebra",
-      "titulo": "Actividad con GeoGebra",
-      "descripcion": "Recurso interactivo para explorar visualmente el tema cuando la semana lo requiera.",
-      "url": "",
-      "disponible": false,
+      "modo": "iframe",
+      "altura": 760,
+      "disponible": true,
       "abrirEnNuevaPestana": true
     },
     {
-      "tipo": "recurso",
-      "recursoTipo": "pdf",
-      "titulo": "Descargar práctica",
-      "descripcion": "Versión imprimible del trabajo de la semana.",
-      "url": "modulos/m70/semana-01/pdf/practica-semana-01.pdf",
-      "disponible": false,
-      "abrirEnNuevaPestana": true
+      "tipo": "pdf",
+      "mostrar": true,
+      "titulo": "Resumen y práctica imprimible",
+      "descripcion": "Material PDF de apoyo de la Semana 01.",
+      "url": "modulos/m70/semana-01/pdf/resumen-practica-semana-01.pdf",
+      "vistaPrevia": true,
+      "descargar": true,
+      "disponible": true,
+      "altura": 650
     }
   ],
   "ayuda": {
